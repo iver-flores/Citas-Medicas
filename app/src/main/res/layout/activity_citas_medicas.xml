@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_map"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:padding="@dimen/standard_5"
+    tools:context=".activities.CitasMedicasActivity">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            layout="@layout/content_main"
+            android:background="#FFFFFF" />
+
+        <View
+            android:id="@+id/fabBGLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/transparente"
+            android:visibility="gone" />
+
+        <!--<LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|right"
+            android:clipToPadding="false"
+            android:gravity="center_vertical"
+            app:layout_behavior=".utils.MoveUpwardBehavior">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_principal1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:backgroundTint="@color/fui_transparent"
+                android:gravity="center_vertical"
+                android:src="@drawable/ic_settings"
+                app:backgroundTint="@color/fui_transparent"
+                app:fabSize="normal"
+                app:rippleColor="@color/fui_transparent" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_eliminar_cuenta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|right"
+            android:clipToPadding="false"
+            android:gravity="center_vertical"
+            android:layout_marginEnd="@dimen/standard_3"
+            android:visibility="gone"
+            app:layout_behavior=".utils.MoveUpwardBehavior">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/curvatura_azul"
+                android:padding="@dimen/standard_6"
+                android:text="@string/main_menu_action_singoff"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/white" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_eliminar_cuenta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/green_100"
+                android:src="@drawable/ic_emoticon_happy"
+                android:tint="@android:color/white"
+                app:fabSize="mini" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_acerca_de"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|right"
+            android:clipToPadding="false"
+            android:gravity="center_vertical"
+            android:layout_marginEnd="@dimen/standard_3"
+            android:visibility="gone"
+            app:layout_behavior=".utils.MoveUpwardBehavior">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/curvatura_azul"
+                android:padding="@dimen/standard_6"
+                android:text="@string/main_menu_about"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/white" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_acerca_de"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/green_100"
+                android:src="@drawable/ic_pencil"
+                app:fabSize="mini" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_ver_perfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|right"
+            android:clipToPadding="false"
+            android:gravity="center_vertical"
+            android:layout_marginEnd="@dimen/standard_3"
+            android:visibility="gone"
+            app:layout_behavior=".utils.MoveUpwardBehavior">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/curvatura_azul"
+                android:padding="@dimen/standard_6"
+                android:text="@string/profile_title"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/white" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_ver_perfil"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/green_100"
+                android:src="@drawable/ic_emoticon_happy"
+                android:tint="@android:color/white"
+                app:fabSize="mini" />
+
+        </LinearLayout>-->
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</RelativeLayout>
