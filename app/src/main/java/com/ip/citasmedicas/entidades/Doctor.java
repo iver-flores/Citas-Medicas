@@ -5,19 +5,17 @@ import com.google.firebase.database.Exclude;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Pacientes {
+public class Doctor {
 
     public static final String UID = "uid";
     public static final String USERNAME = "nombre";
     public static final String EMAIL = "email";
     public static final String PHOTO_PERFIL = "foto_perfil";
     public static final String TELEPHONE = "telefono";
-    public static final String PHOTO_CI = "foto_ci";
-    public static final String REGISTRO = "registro";
-    public static final String CONSULTAS = "consultas";
+    public static final String CI = "ci";
+    public static final String ESPECIALIDADES = "especialidades";
+    public static final String PACIENTES = "pacientes";
     public static final String HORAS = "horas";
-    public static final String COSTOS = "costos";
-    public static final String MEDICOS = "medicos";
     public static final String ESTADO = "estado";
 
     public String uid;
@@ -25,32 +23,38 @@ public class Pacientes {
     public String email;
     public String photo_perfil;
     public String telephone;
-    public String photo_ci;
-    public String registro;
-    public String consultas;
+    public String ci;
+    public String especialidades;
+    public String pacientes;
     public String horas;
-    public String costos;
-    public String medicos;
-    public Boolean estado;
+    public boolean estado;
 
-    public Pacientes() {
+    public Doctor() {
 
     }
 
-    public Pacientes(String uid, String username, String email, String photo_perfil,
-                     String telephone, String photo_ci, String registro, String consultas,
-                     String horas, String costos, String medicos, Boolean estado) {
+    public Doctor(String uid, String username, String email, String photo_perfil, String telephone,
+                  String ci, boolean estado) {
         this.uid = uid;
         this.username = username;
         this.email = email;
         this.photo_perfil = photo_perfil;
         this.telephone = telephone;
-        this.photo_ci = photo_ci;
-        this.registro = registro;
-        this.consultas = consultas;
+        this.ci = ci;
+        this.estado = estado;
+    }
+
+    public Doctor(String uid, String username, String email, String photo_perfil, String telephone,
+                  String ci, String especialidades, String pacientes, String horas, boolean estado) {
+        this.uid = uid;
+        this.username = username;
+        this.email = email;
+        this.photo_perfil = photo_perfil;
+        this.telephone = telephone;
+        this.ci = ci;
+        this.especialidades = especialidades;
+        this.pacientes = pacientes;
         this.horas = horas;
-        this.costos = costos;
-        this.medicos = medicos;
         this.estado = estado;
     }
 
@@ -94,28 +98,28 @@ public class Pacientes {
         this.telephone = telephone;
     }
 
-    public String getPhoto_ci() {
-        return photo_ci;
+    public String getCi() {
+        return ci;
     }
 
-    public void setPhoto_ci(String photo_ci) {
-        this.photo_ci = photo_ci;
+    public void setCi(String ci) {
+        this.ci = ci;
     }
 
-    public String getRegistro() {
-        return registro;
+    public String getEspecialidades() {
+        return especialidades;
     }
 
-    public void setRegistro(String registro) {
-        this.registro = registro;
+    public void setEspecialidades(String especialidades) {
+        this.especialidades = especialidades;
     }
 
-    public String getConsultas() {
-        return consultas;
+    public String getPacientes() {
+        return pacientes;
     }
 
-    public void setConsultas(String consultas) {
-        this.consultas = consultas;
+    public void setPacientes(String pacientes) {
+        this.pacientes = pacientes;
     }
 
     public String getHoras() {
@@ -126,44 +130,26 @@ public class Pacientes {
         this.horas = horas;
     }
 
-    public String getCostos() {
-        return costos;
-    }
-
-    public void setCostos(String costos) {
-        this.costos = costos;
-    }
-
-    public String getMedicos() {
-        return medicos;
-    }
-
-    public void setMedicos(String medicos) {
-        this.medicos = medicos;
-    }
-
-    public Boolean getEstado() {
+    public boolean isEstado() {
         return estado;
     }
 
-    public void setEstado(Boolean estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 
     @Exclude
-    public Map<String, Object> toDomiciliario() {
+    public Map<String, Object> toDoctor() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("uid", uid);
         result.put("nombre", username);
         result.put("email", email);
         result.put("foto_perfil", photo_perfil);
         result.put("telefono", telephone);
-        result.put("foto_ci", photo_ci);
-        result.put("registro", registro);
-        result.put("consultas", consultas);
+        result.put("ci", ci);
+        result.put("especialidades", especialidades);
+        result.put("pacientes", pacientes);
         result.put("horas", horas);
-        result.put("costos", costos);
-        result.put("medicos", medicos);
         result.put("estado", estado);
 
         return result;

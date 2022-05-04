@@ -43,7 +43,7 @@
         \nSus conversaciones no se eliminarán permanentemente.</string>
     <string name="main_dialog_title_confirmDelete">Eliminar amigo</string>
     <string name="main_error_permission_denied">Cerrando&#8230;</string>
-    <string name="main_menu_about">Acerca de </string>
+    <string name="main_menu_about">Acerca de C.M.</string>
     <string name="main_menu_action_singoff">Eliminar su cuenta</string>
     <string name="main_message_request_accepted">Ahora %s y tu son amigos.</string>
     <string name="main_message_request_denied">Solicitud rechazada.</string>
@@ -59,7 +59,7 @@
     <string name="profile_error_invalid_image">Esta imagen no se pudo procesar.</string>
     <string name="profile_error_notfound">Imagen/archivo no encontrado.</string>
     <string name="profile_hint_username">username</string>
-    <string name="profile_hint_telephone">teléfono</string>
+    <string name="profile_hint_telephone">Teléfono</string>
     <string name="profile_message_userUpdated">Usuario actualizado correctamente.</string>
     <string name="profile_message_imageUploading">Cambiando imagen de perfil, espere&#8230;</string>
     <string name="profile_message_imageUpdated">Imagen de perfil actualizada exitosamente.</string>

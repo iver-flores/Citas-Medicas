@@ -5,18 +5,18 @@ import com.google.firebase.database.Exclude;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Medico {
+public class Paciente {
 
     public static final String UID = "uid";
     public static final String USERNAME = "nombre";
     public static final String EMAIL = "email";
     public static final String PHOTO_PERFIL = "foto_perfil";
     public static final String TELEPHONE = "telefono";
-    public static final String PHOTO_CI = "foto_ci";
+    public static final String CI = "ci";
     public static final String REGISTRO = "registro";
-    public static final String ESPECIALIDADES = "especialidades";
-    public static final String PACIENTES = "pacientes";
+    public static final String ESPECIALIDAD = "especialidades";
     public static final String HORAS = "horas";
+    public static final String DOCTORES = "doctores";
     public static final String ESTADO = "estado";
 
     public String uid;
@@ -24,30 +24,42 @@ public class Medico {
     public String email;
     public String photo_perfil;
     public String telephone;
-    public String photo_ci;
+    public String ci;
     public String registro;
     public String especialidades;
-    public String pacientes;
     public String horas;
-    public Boolean estado;
+    public String doctores;
+    public boolean estado;
 
-    public Medico() {
+    public Paciente() {
 
     }
 
-    public Medico(String uid, String username, String email, String photo_perfil, String telephone,
-                  String photo_ci, String registro, String especialidades, String pacientes,
-                  String horas, Boolean estado) {
+    public Paciente(String uid, String username, String email, String photo_perfil,
+                    String telephone, String ci, String registro, boolean estado) {
         this.uid = uid;
         this.username = username;
         this.email = email;
         this.photo_perfil = photo_perfil;
         this.telephone = telephone;
-        this.photo_ci = photo_ci;
+        this.ci = ci;
+        this.registro = registro;
+        this.estado = estado;
+    }
+
+    public Paciente(String uid, String username, String email, String photo_perfil,
+                    String telephone, String ci, String registro, String especialidades,
+                    String horas, String doctores, boolean estado) {
+        this.uid = uid;
+        this.username = username;
+        this.email = email;
+        this.photo_perfil = photo_perfil;
+        this.telephone = telephone;
+        this.ci = ci;
         this.registro = registro;
         this.especialidades = especialidades;
-        this.pacientes = pacientes;
         this.horas = horas;
+        this.doctores = doctores;
         this.estado = estado;
     }
 
@@ -91,12 +103,12 @@ public class Medico {
         this.telephone = telephone;
     }
 
-    public String getPhoto_ci() {
-        return photo_ci;
+    public String getCi() {
+        return ci;
     }
 
-    public void setPhoto_ci(String photo_ci) {
-        this.photo_ci = photo_ci;
+    public void setCi(String ci) {
+        this.ci = ci;
     }
 
     public String getRegistro() {
@@ -115,14 +127,6 @@ public class Medico {
         this.especialidades = especialidades;
     }
 
-    public String getPacientes() {
-        return pacientes;
-    }
-
-    public void setPacientes(String pacientes) {
-        this.pacientes = pacientes;
-    }
-
     public String getHoras() {
         return horas;
     }
@@ -131,27 +135,35 @@ public class Medico {
         this.horas = horas;
     }
 
-    public Boolean getEstado() {
+    public String getDoctores() {
+        return doctores;
+    }
+
+    public void setDoctores(String doctores) {
+        this.doctores = doctores;
+    }
+
+    public boolean isEstado() {
         return estado;
     }
 
-    public void setEstado(Boolean estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 
     @Exclude
-    public Map<String, Object> toDomiciliario() {
+    public Map<String, Object> toPaciente() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("uid", uid);
         result.put("nombre", username);
         result.put("email", email);
         result.put("foto_perfil", photo_perfil);
         result.put("telefono", telephone);
-        result.put("foto_ci", photo_ci);
+        result.put("ci", ci);
         result.put("registro", registro);
         result.put("especialidades", especialidades);
-        result.put("pacientes", pacientes);
         result.put("horas", horas);
+        result.put("doctores", doctores);
         result.put("estado", estado);
 
         return result;

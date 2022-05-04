@@ -19,6 +19,11 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="AppTheme.Especialidades">
+        <item name="android:background">#00537D</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
     <style name="Theme.VeodoUsuario.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.VeodoUsuario.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

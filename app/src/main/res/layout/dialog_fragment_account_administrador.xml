@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="6dp">
+
+    <ImageButton
+        android:id="@+id/ib_atras"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/button"
+        android:padding="5dp"
+        android:src="@drawable/ic_close"
+        tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+    <LinearLayout
+        android:id="@+id/ll_titulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="3dp"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tv_registro"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:text="@string/configure_account"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:gravity="center"/>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:layout_height="2dp"
+            android:background="@color/black"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_titulo"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/standard_5"
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_registro"
+            android:layout_width="84dp"
+            android:layout_height="84dp"
+            android:layout_marginRight="@dimen/standard_5"
+            android:src="@drawable/ic_person" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/standard_5"
+                android:text="Nombre: "
+                android:textColor="@color/black"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+            <TextView
+                android:id="@+id/tv_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/standard_5"
+                android:text="Email: "
+                android:textColor="@color/black"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+            <TextView
+                android:id="@+id/tv_estado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/standard_5"
+                android:text="Estado: "
+                android:textColor="@color/red_a700"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_ci"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_account"
+        android:background="@color/fui_transparent"
+        android:orientation="horizontal"
+        android:padding="@dimen/standard_5"
+        android:textColorHint="@color/blue_900"
+        app:counterEnabled="true"
+        app:counterMaxLength="12"
+        app:counterOverflowTextAppearance="@style/CounterOverFlow"
+        app:counterTextColor="@color/blue_900"
+        app:endIconTint="@color/black"
+        app:errorEnabled="true"
+        app:errorTextAppearance="@style/Error"
+        app:hintTextAppearance="@style/Hint"
+        app:passwordToggleTint="@color/black"
+        app:startIconTint="@color/black">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_ci"
+            android:layout_width="@dimen/standard_200"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/fui_transparent"
+            android:hint="Cédula de identidad"
+            android:inputType="text"
+            android:maxLength="12"
+            android:text=""
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/blue_900"
+            android:textColorHint="@color/blue_900"
+            android:textColorLink="@color/blue_900"
+            tools:ignore="TouchTargetSizeCheck" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_telephone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/til_ci"
+        android:background="@color/fui_transparent"
+        android:orientation="horizontal"
+        android:padding="@dimen/standard_5"
+        android:textColorHint="@color/blue_900"
+        app:counterEnabled="true"
+        app:counterMaxLength="16"
+        app:counterOverflowTextAppearance="@style/CounterOverFlow"
+        app:counterTextColor="@color/blue_900"
+        app:endIconTint="@color/black"
+        app:errorEnabled="true"
+        app:errorTextAppearance="@style/Error"
+        app:hintTextAppearance="@style/Hint"
+        app:passwordToggleTint="@color/black"
+        app:startIconTint="@color/black">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_telephone"
+            android:layout_width="@dimen/standard_200"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/fui_transparent"
+            android:hint="@string/profile_hint_telephone"
+            android:inputType="phone"
+            android:maxLength="16"
+            android:text=""
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/blue_900"
+            android:textColorHint="@color/blue_900"
+            android:textColorLink="@color/blue_900"
+            tools:ignore="TouchTargetSizeCheck" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+    <Button
+        android:id="@+id/btn_guardar_cambios"
+        android:layout_width="@dimen/standard_200"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/til_telephone"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/standard_12"
+        android:text="GUARDAR" />
+
+</RelativeLayout>

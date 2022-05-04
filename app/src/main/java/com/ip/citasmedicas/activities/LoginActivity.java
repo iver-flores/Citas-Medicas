@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
             dialogoPago();
         }else {
             mFirebaseAuth = FirebaseAuth.getInstance();
-            //cloudMessagingAPI.subscribeToMyTopic(firebaseUser.getEmail());
+            cloudMessagingAPI = FirebaseCloudMessagingAPI.getInstance();
             init();
 
             if (setProgress()){
@@ -77,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 firebaseUser = firebaseAuth.getCurrentUser();
                 if (firebaseUser != null) {
-                    //cloudMessagingAPI.subscribeToMyTopic(firebaseUser.getEmail());
+                    cloudMessagingAPI.subscribeToMyTopic(firebaseUser.getEmail());
                     hideProgress();
                     openMainActivity();
                 }else {
@@ -89,6 +89,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void openMainActivity() {
         Intent intent = new Intent(this, CitasMedicasActivity.class);
+        intent.putExtra("uid", firebaseUser.getUid());
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
                 Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
