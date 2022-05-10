@@ -20,7 +20,7 @@ public class DoctorFragment extends Fragment {
     private FirebaseUser firebaseUser;
     private DatabaseReference mDatabase;
 
-    private String uidUsuario = "";
+    private String uidDoctor = "";
 
     int tamaño = 0;
 
@@ -32,7 +32,7 @@ public class DoctorFragment extends Fragment {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        uidUsuario = firebaseUser.getUid();
+        uidDoctor = firebaseUser.getUid();
 
         return view;
     }

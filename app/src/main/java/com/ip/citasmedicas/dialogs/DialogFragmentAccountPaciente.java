@@ -271,6 +271,7 @@ public class DialogFragmentAccountPaciente extends DialogFragment implements Vie
         mDatabase.child(RutasRealtime.PATH_PACIENTE).child(uid).child(Paciente.TELEPHONE).setValue(telefonoA);
         mDatabase.child(RutasRealtime.PATH_PACIENTE).child(uid).child(Paciente.CI).setValue(ciA);
         mDatabase.child(RutasRealtime.PATH_PACIENTE).child(uid).child(Paciente.REGISTRO).setValue(registroA);
+        mDatabase.child(RutasRealtime.PATH_PACIENTE).child(uid).child(Paciente.ESTADO).setValue(true);
     }
 
     private void dialogoRegistro(){

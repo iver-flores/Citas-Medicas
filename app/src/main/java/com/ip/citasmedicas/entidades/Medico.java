@@ -5,7 +5,7 @@ import com.google.firebase.database.Exclude;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Doctor {
+public class Medico {
 
     public static final String UID = "uid";
     public static final String USERNAME = "nombre";
@@ -29,11 +29,11 @@ public class Doctor {
     public String horas;
     public boolean estado;
 
-    public Doctor() {
+    public Medico() {
 
     }
 
-    public Doctor(String uid, String username, String email, String photo_perfil, String telephone,
+    public Medico(String uid, String username, String email, String photo_perfil, String telephone,
                   String ci, boolean estado) {
         this.uid = uid;
         this.username = username;
@@ -44,7 +44,7 @@ public class Doctor {
         this.estado = estado;
     }
 
-    public Doctor(String uid, String username, String email, String photo_perfil, String telephone,
+    public Medico(String uid, String username, String email, String photo_perfil, String telephone,
                   String ci, String especialidades, String pacientes, String horas, boolean estado) {
         this.uid = uid;
         this.username = username;

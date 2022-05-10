@@ -1,10 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:mapbox="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue_100">
+    android:gravity="center">
 
 
-</FrameLayout>
+    <LinearLayout
+        android:id="@+id/ll_usuario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_margin="@dimen/standard_12"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_ver_doctor"
+            android:layout_width="@dimen/standard_200"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/standard_5"
+            android:text="VER MEDICO" />
+
+        <Button
+            android:id="@+id/btn_ver_paciente"
+            android:layout_width="@dimen/standard_200"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/standard_5"
+            android:text="VER PACIENTE" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_historial"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_usuario"
+        android:gravity="center"
+        android:layout_margin="@dimen/standard_12"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_ver_historial"
+            android:layout_width="@dimen/standard_200"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/standard_5"
+            android:text="HISTORIAL" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

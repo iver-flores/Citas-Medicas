@@ -39,7 +39,7 @@ import com.ip.citasmedicas.dialogs.DialogFragmentAccountAdministrador;
 import com.ip.citasmedicas.dialogs.DialogFragmentAccountDoctor;
 import com.ip.citasmedicas.dialogs.DialogFragmentAccountPaciente;
 import com.ip.citasmedicas.entidades.Administrador;
-import com.ip.citasmedicas.entidades.Doctor;
+import com.ip.citasmedicas.entidades.Medico;
 import com.ip.citasmedicas.entidades.Paciente;
 import com.ip.citasmedicas.entidades.RutasRealtime;
 import com.ip.citasmedicas.fragments.AdministradorFragment;
@@ -75,7 +75,7 @@ public class CitasMedicasActivity extends AppCompatActivity implements View.OnCl
     private Bundle args = new Bundle();
 
     private Paciente paciente;
-    private Doctor doctor;
+    private Medico medico;
     private Administrador administrador;
 
     private int registro = 0;
@@ -163,16 +163,16 @@ public class CitasMedicasActivity extends AppCompatActivity implements View.OnCl
                                 leerAdministrador(uid);
                             }else if (dataSnapshot.child(RutasRealtime.PATH_UID).getValue().equals(uid)){
                                 registro = 3;
-                                doctor = new Doctor(
-                                        dataSnapshot.child(doctor.UID).getValue().toString(),
-                                        dataSnapshot.child(doctor.USERNAME).getValue().toString(),
-                                        dataSnapshot.child(doctor.EMAIL).getValue().toString(),
-                                        dataSnapshot.child(doctor.PHOTO_PERFIL).getValue().toString(),
-                                        dataSnapshot.child(doctor.TELEPHONE).getValue().toString(),
-                                        dataSnapshot.child(doctor.CI).getValue().toString(),
-                                        (Boolean) dataSnapshot.child(doctor.ESTADO).getValue()
+                                medico = new Medico(
+                                        dataSnapshot.child(medico.UID).getValue().toString(),
+                                        dataSnapshot.child(medico.USERNAME).getValue().toString(),
+                                        dataSnapshot.child(medico.EMAIL).getValue().toString(),
+                                        dataSnapshot.child(medico.PHOTO_PERFIL).getValue().toString(),
+                                        dataSnapshot.child(medico.TELEPHONE).getValue().toString(),
+                                        dataSnapshot.child(medico.CI).getValue().toString(),
+                                        (Boolean) dataSnapshot.child(medico.ESTADO).getValue()
                                 );
-                                if (doctor.isEstado()){
+                                if (medico.isEstado()){
                                     fragment = new DoctorFragment();
                                     replaceFragment(fragment);
                                 }else {
@@ -180,11 +180,11 @@ public class CitasMedicasActivity extends AppCompatActivity implements View.OnCl
                                     DialogFragmentAccountDoctor dialogFragmentAccountDoctor =
                                             new DialogFragmentAccountDoctor();
                                     args.putString(RutasRealtime.UID, uid);
-                                    args.putString(RutasRealtime.USERNAME, doctor.getUsername());
-                                    args.putString(RutasRealtime.EMAIL, doctor.getEmail());
-                                    args.putString(RutasRealtime.PHOTO_PERFIL, doctor.getPhoto_perfil());
-                                    args.putString(RutasRealtime.TELEPHONE, doctor.getTelephone());
-                                    args.putString(RutasRealtime.CI, doctor.getCi());
+                                    args.putString(RutasRealtime.USERNAME, medico.getUsername());
+                                    args.putString(RutasRealtime.EMAIL, medico.getEmail());
+                                    args.putString(RutasRealtime.PHOTO_PERFIL, medico.getPhoto_perfil());
+                                    args.putString(RutasRealtime.TELEPHONE, medico.getTelephone());
+                                    args.putString(RutasRealtime.CI, medico.getCi());
                                     args.putBoolean(RutasRealtime.ESTADO, false);
                                     abrirFuncion(dialogFragmentAccountDoctor, args);
 
@@ -300,7 +300,7 @@ public class CitasMedicasActivity extends AppCompatActivity implements View.OnCl
                 if (registro == 2){
                     eliminarCuenta(RutasRealtime.PATH_PACIENTE,paciente.getEmail());
                 }else if (registro == 3){
-                    eliminarCuenta(RutasRealtime.PATH_PACIENTE, doctor.getEmail());
+                    eliminarCuenta(RutasRealtime.PATH_PACIENTE, medico.getEmail());
                 }else if (registro == 4){
                     eliminarCuenta(RutasRealtime.PATH_PACIENTE, administrador.getEmail());
                 }
@@ -325,11 +325,11 @@ public class CitasMedicasActivity extends AppCompatActivity implements View.OnCl
                     DialogFragmentAccountDoctor dialogFragmentAccountDoctor =
                             new DialogFragmentAccountDoctor();
                     args.putString(RutasRealtime.UID, uid);
-                    args.putString(RutasRealtime.USERNAME, doctor.getUsername());
-                    args.putString(RutasRealtime.EMAIL, doctor.getEmail());
-                    args.putString(RutasRealtime.PHOTO_PERFIL, doctor.getPhoto_perfil());
-                    args.putString(RutasRealtime.TELEPHONE, doctor.getTelephone());
-                    args.putString(RutasRealtime.CI, doctor.getCi());
+                    args.putString(RutasRealtime.USERNAME, medico.getUsername());
+                    args.putString(RutasRealtime.EMAIL, medico.getEmail());
+                    args.putString(RutasRealtime.PHOTO_PERFIL, medico.getPhoto_perfil());
+                    args.putString(RutasRealtime.TELEPHONE, medico.getTelephone());
+                    args.putString(RutasRealtime.CI, medico.getCi());
                     args.putBoolean(RutasRealtime.ESTADO, false);
                     abrirFuncion(dialogFragmentAccountDoctor, args);
                 }else if (registro == 4) {
@@ -376,9 +376,9 @@ public class CitasMedicasActivity extends AppCompatActivity implements View.OnCl
             case R.id.btn_doctor:
                 DialogFragmentAccountDoctor dialogFragmentAccountDoctor = new DialogFragmentAccountDoctor();
                 if (registro == 1) {
-                    Doctor doctor = new Doctor(uid, user, email, "0", "+57", "0",
+                    Medico medico = new Medico(uid, user, email, "0", "+57", "0",
                             "0", "0", "0", false);
-                    Map<String, Object> doctorValues = doctor.toDoctor();
+                    Map<String, Object> doctorValues = medico.toDoctor();
                     mDatabase.child(RutasRealtime.PATH_DOCTOR).child(uid).updateChildren(doctorValues);
                     args.putString(RutasRealtime.UID, uid);
                     args.putString(RutasRealtime.USERNAME, user);
@@ -523,14 +523,14 @@ public class CitasMedicasActivity extends AppCompatActivity implements View.OnCl
                     @Override
                     public void onComplete(@NonNull Task<DataSnapshot> task) {
                         if (task.isSuccessful()) {
-                            doctor = new Doctor(
-                                    task.getResult().child(doctor.UID).getValue().toString(),
-                                    task.getResult().child(doctor.USERNAME).getValue().toString(),
-                                    task.getResult().child(doctor.EMAIL).getValue().toString(),
-                                    task.getResult().child(doctor.PHOTO_PERFIL).getValue().toString(),
-                                    task.getResult().child(doctor.TELEPHONE).getValue().toString(),
-                                    task.getResult().child(doctor.CI).getValue().toString(),
-                                    (Boolean) task.getResult().child(doctor.ESTADO).getValue()
+                            medico = new Medico(
+                                    task.getResult().child(medico.UID).getValue().toString(),
+                                    task.getResult().child(medico.USERNAME).getValue().toString(),
+                                    task.getResult().child(medico.EMAIL).getValue().toString(),
+                                    task.getResult().child(medico.PHOTO_PERFIL).getValue().toString(),
+                                    task.getResult().child(medico.TELEPHONE).getValue().toString(),
+                                    task.getResult().child(medico.CI).getValue().toString(),
+                                    (Boolean) task.getResult().child(medico.ESTADO).getValue()
                             );
                         }
                         registro = 3;

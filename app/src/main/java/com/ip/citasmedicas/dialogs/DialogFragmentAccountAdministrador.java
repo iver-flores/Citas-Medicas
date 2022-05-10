@@ -245,6 +245,7 @@ public class DialogFragmentAccountAdministrador extends DialogFragment implement
         mDatabase.child(RutasRealtime.PATH_ADMINISTRADOR).child(uid).child(Paciente.PHOTO_PERFIL).setValue(fotoPerfilA);
         mDatabase.child(RutasRealtime.PATH_ADMINISTRADOR).child(uid).child(Administrador.TELEPHONE).setValue(telefonoA);
         mDatabase.child(RutasRealtime.PATH_ADMINISTRADOR).child(uid).child(Administrador.CI).setValue(ciA);
+        mDatabase.child(RutasRealtime.PATH_ADMINISTRADOR).child(uid).child(Paciente.ESTADO).setValue(true);
     }
 
     private void dialogoRegistro(){
