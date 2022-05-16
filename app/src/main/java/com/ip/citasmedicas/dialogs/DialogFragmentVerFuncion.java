@@ -30,7 +30,7 @@ import com.ip.citasmedicas.R;
 import com.ip.citasmedicas.adapters.AdaptadorDoctor;
 import com.ip.citasmedicas.adapters.AdaptadorHistorial;
 import com.ip.citasmedicas.adapters.AdaptadorPaciente;
-import com.ip.citasmedicas.entidades.ListaDoctor;
+import com.ip.citasmedicas.entidades.ListaMedico;
 import com.ip.citasmedicas.entidades.ListaPaciente;
 import com.ip.citasmedicas.entidades.RutasRealtime;
 
@@ -53,7 +53,7 @@ public class DialogFragmentVerFuncion extends DialogFragment implements View.OnC
     private FirebaseUser firebaseUser;
     private DatabaseReference mDatabase;
 
-    private ArrayList<ListaDoctor> listaDoctors;
+    private ArrayList<ListaMedico> listaMedicos;
     private ArrayList<ListaPaciente> listaPacientes;
 
     private AdaptadorDoctor adaptadorDoctor;
@@ -82,7 +82,7 @@ public class DialogFragmentVerFuncion extends DialogFragment implements View.OnC
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        listaDoctors = new ArrayList<>();
+        listaMedicos = new ArrayList<>();
         listaPacientes = new ArrayList<>();
 
         init(v);
@@ -96,9 +96,9 @@ public class DialogFragmentVerFuncion extends DialogFragment implements View.OnC
                         public void onSuccess(DataSnapshot dataSnapshot) {
 
                             for (DataSnapshot snapshot :dataSnapshot.getChildren()){
-                                final ListaDoctor listaDoctor = snapshot.getValue(ListaDoctor.class);
-                                listaDoctor.setId(snapshot.getKey());
-                                listaDoctors.add(listaDoctor);
+                                final ListaMedico listaMedico = snapshot.getValue(ListaMedico.class);
+                                listaMedico.setId(snapshot.getKey());
+                                listaMedicos.add(listaMedico);
                             }
                             configAdapterDoctor();
                         }
@@ -234,8 +234,8 @@ public class DialogFragmentVerFuncion extends DialogFragment implements View.OnC
     }
 
     private void configAdapterDoctor(){
-        if (listaDoctors.size() > 0){
-            adaptadorDoctor = new AdaptadorDoctor(requireActivity(), listaDoctors);
+        if (listaMedicos.size() > 0){
+            adaptadorDoctor = new AdaptadorDoctor(requireActivity(), listaMedicos);
             adaptadorDoctor.setCustomButtonListner(DialogFragmentVerFuncion.this);
             lvDoctor.setAdapter(adaptadorDoctor);
             lvDoctor.setSelection(adaptadorDoctor.getCount() - 1);
@@ -251,7 +251,7 @@ public class DialogFragmentVerFuncion extends DialogFragment implements View.OnC
     }
 
     @Override
-    public void onButtonClickVerListner(ListaDoctor listaDoctores) {
+    public void onButtonClickVerListner(ListaMedico listaDoctores) {
         lvDoctor.setVisibility(View.GONE);
         llEspecialidades.setVisibility(View.VISIBLE);
         uidDoctor = listaDoctores.getId();

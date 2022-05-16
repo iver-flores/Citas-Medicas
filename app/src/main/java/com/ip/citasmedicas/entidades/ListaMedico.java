@@ -5,16 +5,16 @@ import com.google.firebase.database.Exclude;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ListaDoctor {
+public class ListaMedico {
     private String id;
     private String foto_perfil;
     private String nombre;
     private String especialidades;
 
-    public ListaDoctor() {
+    public ListaMedico() {
     }
 
-    public ListaDoctor(String id, String foto_perfil, String nombre, String especialidades) {
+    public ListaMedico(String id, String foto_perfil, String nombre, String especialidades) {
         this.id = id;
         this.foto_perfil = foto_perfil;
         this.nombre = nombre;

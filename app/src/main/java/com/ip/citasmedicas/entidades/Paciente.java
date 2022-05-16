@@ -15,7 +15,7 @@ public class Paciente {
     public static final String CI = "ci";
     public static final String REGISTRO = "registro";
     public static final String ESPECIALIDAD = "especialidades";
-    public static final String HORAS = "horas";
+    public static final String TURNOS = "turnos";
     public static final String DOCTORES = "doctores";
     public static final String ESTADO = "estado";
 
@@ -27,7 +27,7 @@ public class Paciente {
     public String ci;
     public String registro;
     public String especialidades;
-    public String horas;
+    public String turnos;
     public String doctores;
     public boolean estado;
 
@@ -36,20 +36,22 @@ public class Paciente {
     }
 
     public Paciente(String uid, String username, String email, String photo_perfil,
-                    String telephone, String ci, String registro, boolean estado) {
+                    String telephone, String ci, String registro, String especialidades,
+                    boolean estado) {
         this.uid = uid;
         this.username = username;
         this.email = email;
         this.photo_perfil = photo_perfil;
         this.telephone = telephone;
         this.ci = ci;
+        this.especialidades = especialidades;
         this.registro = registro;
         this.estado = estado;
     }
 
     public Paciente(String uid, String username, String email, String photo_perfil,
                     String telephone, String ci, String registro, String especialidades,
-                    String horas, String doctores, boolean estado) {
+                    String turnos, String doctores, boolean estado) {
         this.uid = uid;
         this.username = username;
         this.email = email;
@@ -58,7 +60,7 @@ public class Paciente {
         this.ci = ci;
         this.registro = registro;
         this.especialidades = especialidades;
-        this.horas = horas;
+        this.turnos = turnos;
         this.doctores = doctores;
         this.estado = estado;
     }
@@ -127,12 +129,12 @@ public class Paciente {
         this.especialidades = especialidades;
     }
 
-    public String getHoras() {
-        return horas;
+    public String getTurnos() {
+        return turnos;
     }
 
-    public void setHoras(String horas) {
-        this.horas = horas;
+    public void setTurnos(String turnos) {
+        this.turnos = turnos;
     }
 
     public String getDoctores() {
@@ -162,7 +164,7 @@ public class Paciente {
         result.put("ci", ci);
         result.put("registro", registro);
         result.put("especialidades", especialidades);
-        result.put("horas", horas);
+        result.put("turnos", turnos);
         result.put("doctores", doctores);
         result.put("estado", estado);
 

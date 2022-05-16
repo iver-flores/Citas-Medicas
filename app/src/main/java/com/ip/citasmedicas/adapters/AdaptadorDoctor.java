@@ -15,7 +15,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.ip.citasmedicas.R;
-import com.ip.citasmedicas.entidades.ListaDoctor;
+import com.ip.citasmedicas.entidades.ListaMedico;
 
 import java.util.ArrayList;
 
@@ -24,7 +24,7 @@ public class AdaptadorDoctor extends BaseAdapter {
     verButtonListener verButton;
 
     public interface verButtonListener {
-        void onButtonClickVerListner(ListaDoctor listaDoctores);
+        void onButtonClickVerListner(ListaMedico listaDoctores);
     }
 
     public void setCustomButtonListner(verButtonListener verButton) {
@@ -32,13 +32,13 @@ public class AdaptadorDoctor extends BaseAdapter {
     }
 
     //Propiedades
-    private ArrayList<ListaDoctor> listaDoctors;
+    private ArrayList<ListaMedico> listaMedicos;
     private Context context;
     private LayoutInflater inflater;
 
     //Constructor
-    public AdaptadorDoctor(Context context, ArrayList<ListaDoctor> listaDoctors) {
-        this.listaDoctors = listaDoctors;
+    public AdaptadorDoctor(Context context, ArrayList<ListaMedico> listaMedicos) {
+        this.listaMedicos = listaMedicos;
         this.context = context;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -46,7 +46,7 @@ public class AdaptadorDoctor extends BaseAdapter {
     //Base Adapter
     @Override
     public int getCount() {
-        return listaDoctors.size();
+        return listaMedicos.size();
     }
 
     @Override
@@ -76,7 +76,7 @@ public class AdaptadorDoctor extends BaseAdapter {
         View rowView = inflater.inflate(R.layout.item_doctor_listview, null);
         Holder holder = new Holder();
 
-        ListaDoctor listaDoctor = listaDoctors.get(position);
+        ListaMedico listaMedico = listaMedicos.get(position);
 
         //Init item_customlistivew
         holder.ivImagenDoctor =  rowView.findViewById(R.id.iv_doctor);
@@ -88,17 +88,17 @@ public class AdaptadorDoctor extends BaseAdapter {
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .centerCrop();
         Glide.with(context)
-                .load(Uri.parse(listaDoctor.getFoto_perfil()))
+                .load(Uri.parse(listaMedico.getFoto_perfil()))
                 .apply(options)
                 .into(holder.ivImagenDoctor);
 
-        holder.tvNombre.setText(listaDoctor.getNombre());
-        holder.tvEspecialidad.setText(listaDoctor.getEspecialidades());
+        holder.tvNombre.setText(listaMedico.getNombre());
+        holder.tvEspecialidad.setText(listaMedico.getEspecialidades());
 
         holder.btnVer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                verButton.onButtonClickVerListner(listaDoctor);
+                verButton.onButtonClickVerListner(listaMedico);
             }
         });
 

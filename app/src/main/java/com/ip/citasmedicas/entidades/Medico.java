@@ -15,7 +15,8 @@ public class Medico {
     public static final String CI = "ci";
     public static final String ESPECIALIDADES = "especialidades";
     public static final String PACIENTES = "pacientes";
-    public static final String HORAS = "horas";
+    public static final String FECHAS = "fechas";
+    public static final String TURNOS = "turnos";
     public static final String ESTADO = "estado";
 
     public String uid;
@@ -26,7 +27,8 @@ public class Medico {
     public String ci;
     public String especialidades;
     public String pacientes;
-    public String horas;
+    public String fechas;
+    public String turnos;
     public boolean estado;
 
     public Medico() {
@@ -45,7 +47,7 @@ public class Medico {
     }
 
     public Medico(String uid, String username, String email, String photo_perfil, String telephone,
-                  String ci, String especialidades, String pacientes, String horas, boolean estado) {
+                  String ci, String especialidades, String pacientes, String fechas, String turnos, boolean estado) {
         this.uid = uid;
         this.username = username;
         this.email = email;
@@ -54,7 +56,8 @@ public class Medico {
         this.ci = ci;
         this.especialidades = especialidades;
         this.pacientes = pacientes;
-        this.horas = horas;
+        this.fechas = fechas;
+        this.turnos = turnos;
         this.estado = estado;
     }
 
@@ -122,12 +125,20 @@ public class Medico {
         this.pacientes = pacientes;
     }
 
-    public String getHoras() {
-        return horas;
+    public String getFechas() {
+        return fechas;
     }
 
-    public void setHoras(String horas) {
-        this.horas = horas;
+    public void setFechas(String fechas) {
+        this.fechas = fechas;
+    }
+
+    public String getTurnos() {
+        return turnos;
+    }
+
+    public void setTurnos(String turnos) {
+        this.turnos = turnos;
     }
 
     public boolean isEstado() {
@@ -149,7 +160,8 @@ public class Medico {
         result.put("ci", ci);
         result.put("especialidades", especialidades);
         result.put("pacientes", pacientes);
-        result.put("horas", horas);
+        result.put("fechas", fechas);
+        result.put("turnos", turnos);
         result.put("estado", estado);
 
         return result;

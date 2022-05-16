@@ -121,6 +121,7 @@ public class CitasMedicasActivity extends AppCompatActivity implements View.OnCl
                                         dataSnapshot.child(paciente.PHOTO_PERFIL).getValue().toString(),
                                         dataSnapshot.child(paciente.TELEPHONE).getValue().toString(),
                                         dataSnapshot.child(paciente.CI).getValue().toString(),
+                                        dataSnapshot.child(paciente.ESPECIALIDAD).getValue().toString(),
                                         dataSnapshot.child(paciente.REGISTRO).getValue().toString(),
                                         (Boolean) dataSnapshot.child(paciente.ESTADO).getValue()
                                 );
@@ -377,7 +378,7 @@ public class CitasMedicasActivity extends AppCompatActivity implements View.OnCl
                 DialogFragmentAccountDoctor dialogFragmentAccountDoctor = new DialogFragmentAccountDoctor();
                 if (registro == 1) {
                     Medico medico = new Medico(uid, user, email, "0", "+57", "0",
-                            "0", "0", "0", false);
+                            "0", "0", "0", "0", false);
                     Map<String, Object> doctorValues = medico.toDoctor();
                     mDatabase.child(RutasRealtime.PATH_DOCTOR).child(uid).updateChildren(doctorValues);
                     args.putString(RutasRealtime.UID, uid);
@@ -507,6 +508,7 @@ public class CitasMedicasActivity extends AppCompatActivity implements View.OnCl
                             task.getResult().child(paciente.PHOTO_PERFIL).getValue().toString(),
                             task.getResult().child(paciente.TELEPHONE).getValue().toString(),
                             task.getResult().child(paciente.CI).getValue().toString(),
+                            task.getResult().child(paciente.ESPECIALIDAD).getValue().toString(),
                             task.getResult().child(paciente.REGISTRO).getValue().toString(),
                             (Boolean) task.getResult().child(paciente.ESTADO).getValue()
                     );

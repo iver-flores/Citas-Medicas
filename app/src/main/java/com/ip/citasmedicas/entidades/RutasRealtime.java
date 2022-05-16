@@ -5,6 +5,7 @@ public class RutasRealtime {
     public static final String PATH_DOCTOR = "doctors";
     public static final String PATH_PACIENTE = "patients";
     public static final String PATH_ADMINISTRADOR = "administrators";
+    public static final String PATH_CONSULTAS = "queries";
 
     public static final String UID = "uid";
     public static final String USERNAME = "nombre";
