@@ -14,7 +14,7 @@
 
         <include
             layout="@layout/content_main"
-            android:background="#FFFFFF" />
+            android:background="@color/transparente" />
 
         <View
             android:id="@+id/fabBGLayout"
@@ -65,7 +65,7 @@
                 android:id="@+id/fab_eliminar_cuenta"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/black"
+                android:backgroundTint="@color/white"
                 android:src="@drawable/ic_delete"
                 android:tint="@android:color/white"
                 app:fabSize="mini" />
@@ -96,7 +96,7 @@
                 android:id="@+id/fab_acerca_de"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/black"
+                android:backgroundTint="@color/white"
                 android:src="@drawable/ic_info"
                 app:fabSize="mini" />
 
@@ -126,7 +126,7 @@
                 android:id="@+id/fab_ver_perfil"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/black"
+                android:backgroundTint="@color/white"
                 android:src="@drawable/ic_person"
                 android:tint="@android:color/white"
                 app:fabSize="mini" />
@@ -157,7 +157,7 @@
                 android:id="@+id/fab_salir"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/black"
+                android:backgroundTint="@color/white"
                 android:src="@drawable/ic_exit"
                 android:tint="@android:color/white"
                 app:fabSize="mini" />
@@ -172,30 +172,70 @@
             android:orientation="vertical"
             android:visibility="gone">
 
-            <Button
-                android:id="@+id/btn_administrador"
+            <TextView
                 android:layout_width="@dimen/standard_200"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/standard_12"
-                android:text="ADMINISTRADOR" />
+                android:gravity="center"
+                android:text="ADMINISTRADOR"
+                android:textColor="@color/bordes"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_marginTop="@dimen/about_vertical_paddingTop"/>
 
-            <Button
-                android:id="@+id/btn_doctor"
+            <ImageButton
+                android:id="@+id/ib_administrador"
                 android:layout_width="@dimen/standard_200"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/standard_100"
                 android:layout_marginBottom="@dimen/standard_12"
-                android:text="DOCTOR" />
+                android:background="@drawable/administrador" />
 
-            <Button
-                android:id="@+id/btn_paciente"
+            <TextView
                 android:layout_width="@dimen/standard_200"
                 android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="DOCTOR"
+                android:textColor="@color/bordes"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_marginTop="@dimen/about_vertical_paddingTop"/>
+
+            <ImageButton
+                android:id="@+id/ib_doctor"
+                android:layout_width="@dimen/standard_200"
+                android:layout_height="@dimen/standard_100"
                 android:layout_marginBottom="@dimen/standard_12"
-                android:text="PACIENTE" />
+                android:background="@drawable/doctor" />
+
+            <TextView
+                android:layout_width="@dimen/standard_200"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="PACIENTE"
+                android:textColor="@color/bordes"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_marginTop="@dimen/about_vertical_paddingTop"/>
+
+            <ImageButton
+                android:id="@+id/ib_paciente"
+                android:layout_width="@dimen/standard_200"
+                android:layout_height="@dimen/standard_100"
+                android:layout_marginBottom="@dimen/standard_12"
+                android:background="@drawable/paciente" />
 
         </LinearLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
+    <TextView
+        android:id="@+id/tv_mensaje"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_margin="@dimen/standard_5"
+        android:gravity="center"
+        android:text="ESPERE A QUE EL ADMINISTRADOR LE ASIGNE UNA ESPECIALIDAD"
+        android:textColor="@color/bordes"
+        android:textStyle="bold"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_marginTop="@dimen/about_vertical_paddingTop"
+        android:visibility="gone"/>
 
 </RelativeLayout>

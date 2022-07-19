@@ -1,214 +1,317 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:padding="6dp">
 
-    <ImageButton
-        android:id="@+id/ib_atras"
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/button"
-        android:padding="5dp"
-        android:src="@drawable/ic_close"
-        tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+        android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/ll_titulo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="3dp"
-        android:gravity="center">
-
-        <TextView
-            android:id="@+id/tv_titulo"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:text="FUNCION"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textStyle="bold"
-            android:textColor="@color/blue_900"
-            android:gravity="center"/>
-
-        <View
+        <ImageButton
+            android:id="@+id/ib_atras"
             android:layout_width="wrap_content"
-            android:layout_marginLeft="100dp"
-            android:layout_marginRight="100dp"
-            android:layout_height="2dp"
-            android:background="@color/blue_900"/>
-    </LinearLayout>
-
-    <ListView
-        android:id="@+id/lv_medicos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ll_titulo"
-        android:padding="1dp"
-        android:visibility="gone"/>
-
-    <ListView
-        android:id="@+id/lv_pacientes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ll_titulo"
-        android:padding="1dp"
-        android:visibility="gone"/>
-
-    <ListView
-        android:id="@+id/lv_historial"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ll_titulo"
-        android:padding="1dp"
-        android:visibility="gone"/>
-
-    <LinearLayout
-        android:id="@+id/ll_especialidades"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ll_titulo"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:visibility="gone">
+            android:layout_height="wrap_content"
+            android:background="@drawable/button"
+            android:padding="5dp"
+            android:src="@drawable/ic_close"
+            tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
         <LinearLayout
+            android:id="@+id/ll_titulo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:padding="3dp"
+            android:gravity="center">
 
-            <ImageView
-                android:id="@+id/iv_doctor"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:src="@drawable/ic_launcher_background"/>
+            <TextView
+                android:id="@+id/tv_titulo"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="FUNCION"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textStyle="bold"
+                android:textColor="@color/blue_900"
+                android:gravity="center"/>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="100dp"
+                android:layout_marginRight="100dp"
+                android:layout_height="2dp"
+                android:background="@color/blue_900"/>
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/lv_medicos"
+            android:layout_width="wrap_content"
+            android:layout_height="500dp"
+            android:layout_below="@id/ll_titulo"
+            android:padding="1dp"
+            android:visibility="gone"/>
+
+        <ListView
+            android:id="@+id/lv_pacientes"
+            android:layout_width="wrap_content"
+            android:layout_height="500dp"
+            android:layout_below="@id/ll_titulo"
+            android:padding="1dp"
+            android:visibility="gone"/>
+
+        <ListView
+            android:id="@+id/lv_historial"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:layout_below="@id/ll_titulo"
+            android:padding="1dp"
+            android:visibility="gone"/>
+
+        <LinearLayout
+            android:id="@+id/ll_especialidades"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ll_titulo"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="vertical"
-                tools:ignore="RelativeOverlap">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_nombre_d"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/standard_3"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:text="Nombre del medico"
-                    android:textColor="@color/black"
-                    android:gravity="center|left"/>
+                <ImageView
+                    android:id="@+id/iv_doctor"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/ic_launcher_background"/>
 
-                <TextView
-                    android:id="@+id/tv_especialidad_d"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/standard_3"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:text="Especialidades"
-                    android:textColor="@color/black"
-                    android:gravity="center|left"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    tools:ignore="RelativeOverlap">
+
+                    <TextView
+                        android:id="@+id/tv_nombre_d"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/standard_3"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:text="Nombre del doctor"
+                        android:textColor="@color/black"
+                        android:gravity="center|left"/>
+
+                    <TextView
+                        android:id="@+id/tv_especialidad_d"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/standard_3"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:text="Especialidades"
+                        android:textColor="@color/black"
+                        android:gravity="center|left"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 
+            <GridLayout
+                android:id="@+id/gl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:alignmentMode="alignBounds"
+                android:layout_marginTop="10dp"
+                android:columnCount="2"
+                android:rowCount="7">
+
+                <TextView
+                    android:id="@+id/tv_uno"
+                    style="@style/AppTheme.Especialidades"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:gravity="center"
+                    android:layout_margin="@dimen/standard_1"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:text="Medicina Familiar" />
+
+                <TextView
+                    android:id="@+id/tv_dos"
+                    style="@style/AppTheme.Especialidades"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
+                    android:layout_column="1"
+                    android:layout_row="0"
+                    android:gravity="center"
+                    android:layout_margin="@dimen/standard_1"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:text="Médicina Interna" />
+
+                <TextView
+                    android:id="@+id/tv_tres"
+                    style="@style/AppTheme.Especialidades"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
+                    android:layout_column="0"
+                    android:layout_row="1"
+                    android:gravity="center"
+                    android:layout_margin="@dimen/standard_1"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:text="Pediatría\n" />
+
+                <TextView
+                    android:id="@+id/tv_cuatro"
+                    style="@style/AppTheme.Especialidades"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
+                    android:layout_column="1"
+                    android:layout_row="1"
+                    android:gravity="center"
+                    android:layout_margin="@dimen/standard_1"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:text="Gineco obstetricia" />
+
+                <TextView
+                    android:id="@+id/tv_cinco"
+                    style="@style/AppTheme.Especialidades"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
+                    android:layout_column="0"
+                    android:layout_row="2"
+                    android:gravity="center"
+                    android:layout_margin="@dimen/standard_1"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:text="Cirugía" />
+
+                <TextView
+                    android:id="@+id/tv_seis"
+                    style="@style/AppTheme.Especialidades"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
+                    android:layout_column="1"
+                    android:layout_row="2"
+                    android:gravity="center"
+                    android:layout_margin="@dimen/standard_1"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:text="Psiquiatría" />
+
+                <TextView
+                    android:id="@+id/tv_siete"
+                    style="@style/AppTheme.Especialidades"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
+                    android:layout_column="0"
+                    android:layout_row="3"
+                    android:gravity="center"
+                    android:layout_margin="@dimen/standard_1"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:text="Cardiología" />
+
+                <TextView
+                    android:id="@+id/tv_ocho"
+                    style="@style/AppTheme.Especialidades"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
+                    android:layout_column="1"
+                    android:layout_row="3"
+                    android:gravity="center"
+                    android:layout_margin="@dimen/standard_1"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:text="Dermatología" />
+
+                <TextView
+                    android:id="@+id/tv_nueve"
+                    style="@style/AppTheme.Especialidades"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
+                    android:layout_column="0"
+                    android:layout_row="4"
+                    android:gravity="center"
+                    android:layout_margin="@dimen/standard_1"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:text="Endocri_\nnología" />
+
+                <TextView
+                    android:id="@+id/tv_diez"
+                    style="@style/AppTheme.Especialidades"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
+                    android:layout_column="1"
+                    android:layout_row="4"
+                    android:gravity="center"
+                    android:layout_margin="@dimen/standard_1"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:text="Gastroen_\nterología" />
+
+                <TextView
+                    android:id="@+id/tv_once"
+                    style="@style/AppTheme.Especialidades"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
+                    android:layout_column="0"
+                    android:layout_row="5"
+                    android:gravity="center"
+                    android:layout_margin="@dimen/standard_1"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:text="Cirugía" />
+
+                <TextView
+                    android:id="@+id/tv_doce"
+                    style="@style/AppTheme.Especialidades"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
+                    android:layout_column="1"
+                    android:layout_row="5"
+                    android:gravity="center"
+                    android:layout_margin="@dimen/standard_1"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:text="Nefrología" />
+
+                <TextView
+                    android:id="@+id/tv_trece"
+                    style="@style/AppTheme.Especialidades"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
+                    android:layout_column="0"
+                    android:layout_row="6"
+                    android:gravity="center"
+                    android:layout_margin="@dimen/standard_1"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:text="Oftalmología" />
+
+                <TextView
+                    android:id="@+id/tv_catorce"
+                    style="@style/AppTheme.Especialidades"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
+                    android:layout_column="1"
+                    android:layout_row="6"
+                    android:gravity="center"
+                    android:layout_margin="@dimen/standard_1"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:text="Neumología" />
+
+            </GridLayout>
+
+            <Button
+                android:id="@+id/btn_guardar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:text="GUARDAR"
+                android:textColor="@color/white"/>
+
         </LinearLayout>
 
-        <GridLayout
-            android:id="@+id/gl"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:alignmentMode="alignBounds"
-            android:layout_marginTop="10dp"
-            android:columnCount="2"
-            android:rowCount="3">
+    </RelativeLayout>
 
-            <TextView
-                android:id="@+id/tv_uno"
-                style="@style/AppTheme.Especialidades"
-                android:layout_width="100dp"
-                android:layout_height="80dp"
-                android:layout_column="0"
-                android:layout_row="0"
-                android:gravity="center"
-                android:layout_margin="@dimen/standard_1"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:text="Medicina Familiar" />
-
-            <TextView
-                android:id="@+id/tv_dos"
-                style="@style/AppTheme.Especialidades"
-                android:layout_width="100dp"
-                android:layout_height="80dp"
-                android:layout_column="1"
-                android:layout_row="0"
-                android:gravity="center"
-                android:layout_margin="@dimen/standard_1"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:text="Médicina Interna" />
-
-            <TextView
-                android:id="@+id/tv_tres"
-                style="@style/AppTheme.Especialidades"
-                android:layout_width="100dp"
-                android:layout_height="80dp"
-                android:layout_column="0"
-                android:layout_row="1"
-                android:gravity="center"
-                android:layout_margin="@dimen/standard_1"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:text="Dermatología" />
-
-            <TextView
-                android:id="@+id/tv_cuatro"
-                style="@style/AppTheme.Especialidades"
-                android:layout_width="100dp"
-                android:layout_height="80dp"
-                android:layout_column="1"
-                android:layout_row="1"
-                android:gravity="center"
-                android:layout_margin="@dimen/standard_1"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:text="Psiquiatría" />
-
-            <TextView
-                android:id="@+id/tv_cinco"
-                style="@style/AppTheme.Especialidades"
-                android:layout_width="100dp"
-                android:layout_height="80dp"
-                android:layout_column="0"
-                android:layout_row="2"
-                android:gravity="center"
-                android:layout_margin="@dimen/standard_1"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:text="Oftalmología" />
-
-            <TextView
-                android:id="@+id/tv_seis"
-                style="@style/AppTheme.Especialidades"
-                android:layout_width="100dp"
-                android:layout_height="80dp"
-                android:layout_column="1"
-                android:layout_row="2"
-                android:gravity="center"
-                android:layout_margin="@dimen/standard_1"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:text="Cardiología" />
-
-        </GridLayout>
-
-        <Button
-            android:id="@+id/btn_guardar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:text="GUARDAR"/>
-
-    </LinearLayout>
-
-</RelativeLayout>
+</ScrollView>

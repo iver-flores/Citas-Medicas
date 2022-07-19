@@ -14,46 +14,28 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.ip.citasmedicas.R;
-import com.ip.citasmedicas.entidades.Paciente;
+import com.ip.citasmedicas.entidades.ListaConsulta;
 
 import java.util.ArrayList;
 
 public class AdaptadorHistorial extends BaseAdapter {
 
-    buyButtonListener buyButton;
-
-    public interface buyButtonListener {
-        void onButtonClickBuyListner(ArrayList<String> listaCompraimagenes,
-                                     ArrayList<String> listaCompraPro,
-                                     ArrayList<String> listaCompraPre);
-    }
-
-    public void setCustomButtonListner(buyButtonListener buyButton) {
-        this.buyButton = buyButton;
-    }
-
     //Propiedades
-    private ArrayList<Paciente> pacientes;
-    private ArrayList<String> listaCompraimagenes;
-    private ArrayList<String> listaCompraProductos;
-    private ArrayList<String> listaCompraPrecios;
+    private ArrayList<ListaConsulta> listaConsultas;
     private Context context;
     private LayoutInflater inflater;
 
     //Constructor
-    public AdaptadorHistorial(Context context, ArrayList<Paciente> paci) {
-        this.pacientes = paci;
+    public AdaptadorHistorial(Context context, ArrayList<ListaConsulta> listaConsultas) {
+        this.listaConsultas = listaConsultas;
         this.context = context;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.listaCompraimagenes = new ArrayList<>();
-        this.listaCompraProductos = new ArrayList<>();
-        this.listaCompraPrecios = new ArrayList<>();
     }
 
     //Base Adapter
     @Override
     public int getCount() {
-        return pacientes.size();
+        return listaConsultas.size();
     }
 
     @Override
@@ -70,8 +52,8 @@ public class AdaptadorHistorial extends BaseAdapter {
 
     static class Holder {
         //Propiedades
-        ImageView ivImagenPaciente;
-        TextView tvNombrePaciente, tvNombreMedico, tvConsulta, tvAtendido;
+        ImageView ivPaciente;
+        TextView tvNombrePaciente, tvNombreDoctor, tvConsulta, tvAtendido;
     }
 
 
@@ -82,12 +64,12 @@ public class AdaptadorHistorial extends BaseAdapter {
         View rowView = inflater.inflate(R.layout.item_historial_listview, null);
         Holder holder = new Holder();
 
-        Paciente paciente = pacientes.get(position);
+        ListaConsulta listaConsulta = listaConsultas.get(position);
 
         //Init item_customlistivew
-        holder.ivImagenPaciente =  rowView.findViewById(R.id.iv_paciente);
+        holder.ivPaciente =  rowView.findViewById(R.id.iv_paciente);
         holder.tvNombrePaciente =  rowView.findViewById(R.id.tv_nombre_paciente);
-        holder.tvNombreMedico =  rowView.findViewById(R.id.tv_nombre_doctor);
+        holder.tvNombreDoctor =  rowView.findViewById(R.id.tv_nombre_doctor);
         holder.tvConsulta =  rowView.findViewById(R.id.tv_consulta);
         holder.tvAtendido =  rowView.findViewById(R.id.tv_atendido);
 
@@ -95,14 +77,14 @@ public class AdaptadorHistorial extends BaseAdapter {
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .centerCrop();
         Glide.with(context)
-                .load(Uri.parse(pacientes.get(position).getPhoto_perfil()))
+                .load(Uri.parse(listaConsulta.getFoto_paciente()))
                 .apply(options)
-                .into(holder.ivImagenPaciente);
+                .into(holder.ivPaciente);
 
-        holder.tvNombrePaciente.setText(pacientes.get(position).getUsername());
-        holder.tvNombreMedico.setText(pacientes.get(position).getUsername());
-        holder.tvConsulta.setText(pacientes.get(position).getUsername());
-        holder.tvAtendido.setText(pacientes.get(position).getEspecialidades());
+        holder.tvNombrePaciente.setText("Paciente: "+listaConsulta.getNombre_paciente());
+        holder.tvNombreDoctor.setText("Doctor: "+listaConsulta.getNombre_doctor());
+        holder.tvConsulta.setText(listaConsulta.getEspecialidad());
+        holder.tvAtendido.setText(listaConsulta.getEstado());
 
         return rowView;
     }

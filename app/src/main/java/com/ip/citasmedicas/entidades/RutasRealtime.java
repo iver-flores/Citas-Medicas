@@ -8,6 +8,8 @@ public class RutasRealtime {
     public static final String PATH_CONSULTAS = "queries";
 
     public static final String UID = "uid";
+    public static final String UID_DOCTOR = "uid_doctor";
+    public static final String UID_PACIENTE = "uid_paciente";
     public static final String USERNAME = "nombre";
     public static final String EMAIL = "email";
     public static final String PHOTO_PERFIL = "foto_perfil";

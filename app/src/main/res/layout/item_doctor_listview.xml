@@ -11,7 +11,7 @@
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="horizontal">
@@ -19,8 +19,8 @@
             <ImageView
                 android:id="@+id/iv_doctor"
                 android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:src="@drawable/ic_launcher_background"/>
+                android:layout_height="100dp"
+                android:src="@drawable/doctor_icon"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -36,7 +36,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/standard_3"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:text="Nombre del medico"
+                    android:text="Nombre del doctor"
                     android:textColor="@color/black"
                     android:gravity="center|left"/>
 
@@ -55,11 +55,12 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/btn_ver"
+            android:id="@+id/btn_ver_doctor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Ver"/>
+            android:text="Ver"
+            android:textColor="@color/white" />
 
     </LinearLayout>
 

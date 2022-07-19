@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -104,6 +105,7 @@ public class DialogFragmentAccountAdministrador extends DialogFragment implement
         tvEmail.setText("Email: " + email);
         if (estado){
             tvEstado.setText("Estado: Habilitado");
+            tvEstado.setTextColor(Color.GREEN);
         }else {
             tvEstado.setText("Estado: Deshabilitado");
         }
@@ -193,7 +195,11 @@ public class DialogFragmentAccountAdministrador extends DialogFragment implement
                         actualizarDatos(telefono, ci, fotoPerfil);
                         ((CitasMedicasActivity)getActivity()).actualizarAdministrador();
                         dialogoRegistro();
+                    }else {
+                        verificarFoto();
                     }
+                }else {
+                    verificarFoto();
                 }
                 break;
         }
@@ -250,8 +256,8 @@ public class DialogFragmentAccountAdministrador extends DialogFragment implement
 
     private void dialogoRegistro(){
         androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(requireActivity());
-        builder.setTitle("Esperando Verificación");
-        builder.setMessage("¿Debe esperar que el administrador habilite su cuenta?");
+        builder.setTitle("Datos guardados correctamente!!");
+        builder.setCancelable(false);
         builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -261,5 +267,11 @@ public class DialogFragmentAccountAdministrador extends DialogFragment implement
         builder.show();
     }
 
+    private void verificarFoto(){
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(requireActivity());
+        builder.setTitle("Verifique que la foto de perfil sea valida");
+        builder.setCancelable(true);
+        builder.show();
+    }
 
 }

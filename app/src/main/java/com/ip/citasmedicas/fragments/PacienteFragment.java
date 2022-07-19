@@ -1,9 +1,12 @@
 package com.ip.citasmedicas.fragments;
 
+import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +22,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.ip.citasmedicas.R;
 import com.ip.citasmedicas.dialogs.DialogFragmentVerEspecialidad;
-import com.ip.citasmedicas.entidades.ListaConsultas;
-import com.ip.citasmedicas.entidades.Medico;
+import com.ip.citasmedicas.entidades.Doctor;
+import com.ip.citasmedicas.entidades.ListaConsulta;
 import com.ip.citasmedicas.entidades.Paciente;
 import com.ip.citasmedicas.entidades.RutasRealtime;
 
@@ -35,7 +38,7 @@ public class PacienteFragment extends Fragment implements View.OnClickListener {
     private Button btnMedicinaFamiliar, btnMedicinaInterna, btnPediatria, btnGinecoObstetricia,
                     btnCirugia, btnPsiquiatria, btnCardiologia, btnDermatologia, btnEndocrinologia,
                     btnGastroenterologia, btnInfectologia, btnNefrologia, btnOftalmologia,
-                    btnOtorrinolaringologia, btnNeumologia;
+                    btnNeumologia, btnVerConsulta;
 
     private FirebaseUser firebaseUser;
     private DatabaseReference mDatabase;
@@ -44,9 +47,9 @@ public class PacienteFragment extends Fragment implements View.OnClickListener {
 
     private String uidPaciente = "";
 
-    int tamaño = 0;
+    private int tamaño = 0, contador  = 0;
 
-    private ArrayList<String> uidMedico;
+    private ArrayList<String> uidDoctor;
     private ArrayList<String> nombreMedico;
     private ArrayList<String> photoMedico;
     private ArrayList<String> especialidadMedico;
@@ -54,6 +57,10 @@ public class PacienteFragment extends Fragment implements View.OnClickListener {
     private ArrayList<String> turnoMedico;
 
     private Bundle args = new Bundle();
+
+    public static final long PERIODO = 5000;
+    private Handler handler;
+    private Runnable runnable;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,10 +70,9 @@ public class PacienteFragment extends Fragment implements View.OnClickListener {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-
         uidPaciente = firebaseUser.getUid();
 
-        uidMedico = new ArrayList<String>();
+        uidDoctor = new ArrayList<String>();
         nombreMedico = new ArrayList<String>();
         photoMedico = new ArrayList<String>();
         especialidadMedico = new ArrayList<String>();
@@ -96,8 +102,8 @@ public class PacienteFragment extends Fragment implements View.OnClickListener {
         btnInfectologia = v.findViewById(R.id.btn_infectologia);
         btnNefrologia = v.findViewById(R.id.btn_nefrologia);
         btnOftalmologia = v.findViewById(R.id.btn_oftalmologia);
-        btnOtorrinolaringologia= v.findViewById(R.id.btn_otorrinolaringologia);
-        btnNeumologia= view.findViewById(R.id.btn_neumologia);
+        btnNeumologia = view.findViewById(R.id.btn_neumologia);
+        btnVerConsulta = view.findViewById(R.id.btn_ver_consulta);
 
         btnMedicinaFamiliar.setOnClickListener(this);
         btnMedicinaInterna.setOnClickListener(this);
@@ -112,63 +118,102 @@ public class PacienteFragment extends Fragment implements View.OnClickListener {
         btnInfectologia.setOnClickListener(this);
         btnNefrologia.setOnClickListener(this);
         btnOftalmologia.setOnClickListener(this);
-        btnOtorrinolaringologia.setOnClickListener(this);
         btnNeumologia.setOnClickListener(this);
+        btnVerConsulta.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
-        DialogFragmentVerEspecialidad dialogFragmentVerEspecialidad = new DialogFragmentVerEspecialidad();
         switch (view.getId()){
             case R.id.btn_familiar:
-                args.putString("especialidad", btnMedicinaFamiliar.getText().toString());
-
-                for (int i = 0; i < tamaño; i++) {
-                    if (btnMedicinaFamiliar.getText().toString().equals(especialidadMedico.get(i))){
-                        args.putString("fotoMedico", photoMedico.get(i));
-                        args.putString("nombreMedico", nombreMedico.get(i));
-                        args.putString("fechaMedico", fechasMedico.get(i));
-                        args.putString("turnoMedico", turnoMedico.get(i));
-                        args.putString("uidPaciente", uidPaciente);
-                        args.putString("fotoPaciente", paciente.getPhoto_perfil());
-                        args.putString("nombrePaciente", paciente.getUsername());
-                        assert getFragmentManager() != null;
-                        dialogFragmentVerEspecialidad.setArguments(args);
-                        dialogFragmentVerEspecialidad.show(requireActivity().getSupportFragmentManager(),
-                                "DialogFragmentVerFuncion");
-                        break;
-                    }
-                }
+                verEspecialidad(btnMedicinaFamiliar.getText());
                 break;
             case R.id.btn_interna:
+                verEspecialidad(btnMedicinaInterna.getText());
                 break;
             case R.id.btn_pediatria:
+                verEspecialidad(btnPediatria.getText());
                 break;
             case R.id.btn_gineco_obstetricia:
+                verEspecialidad(btnGinecoObstetricia.getText());
                 break;
             case R.id.btn_cirugia:
+                verEspecialidad(btnCirugia.getText());
                 break;
             case R.id.btn_psiquiatria:
+                verEspecialidad(btnPsiquiatria.getText());
                 break;
             case R.id.btn_cardiologia:
+                verEspecialidad(btnCardiologia.getText());
                 break;
             case R.id.btn_dermatologia:
+                verEspecialidad(btnDermatologia.getText());
                 break;
             case R.id.btn_endocrinologia:
+                verEspecialidad(btnEndocrinologia.getText());
                 break;
             case R.id.btn_gastroenterologia:
+                verEspecialidad(btnGastroenterologia.getText());
                 break;
             case R.id.btn_infectologia:
+                verEspecialidad(btnInfectologia.getText());
                 break;
             case R.id.btn_nefrologia:
+                verEspecialidad(btnNefrologia.getText());
                 break;
             case R.id.btn_oftalmologia:
-                break;
-            case R.id.btn_otorrinolaringologia:
+                verEspecialidad(btnOftalmologia.getText());
                 break;
             case R.id.btn_neumologia:
+                verEspecialidad(btnNeumologia.getText());
+                break;
+            case R.id.btn_ver_consulta:
+                if (tamaño > 0) {
+                    leerPaciente();
+                }
                 break;
         }
+    }
+
+    private void verEspecialidad(CharSequence text) {
+        DialogFragmentVerEspecialidad dialogFragmentVerEspecialidad = new DialogFragmentVerEspecialidad();
+        args.putString("especialidad", text.toString());
+        contador = 0;
+        for (int i = 0; i < tamaño; i++) {
+            if ((especialidadMedico.get(i).contains(text))
+                    && !turnoMedico.get(i).contains(",")){
+                contador = 1;
+                args.putString("fotoMedico", photoMedico.get(i));
+                args.putString("nombreMedico", nombreMedico.get(i));
+                args.putString("fechaMedico", fechasMedico.get(i));
+                args.putString("turnoMedico", turnoMedico.get(i));
+                args.putString("uidDoctor", uidDoctor.get(i));
+                args.putString("uidPaciente", uidPaciente);
+                args.putString("fotoPaciente", paciente.getPhoto_perfil());
+                args.putString("nombrePaciente", paciente.getUsername());
+                args.putString("Consulta", null);
+                assert getFragmentManager() != null;
+                dialogFragmentVerEspecialidad.setArguments(args);
+                dialogFragmentVerEspecialidad.show(requireActivity().getSupportFragmentManager(),
+                        "DialogFragmentVerFuncion");
+                break;
+            }
+        }
+        if (contador != 1){
+            dialogoNoEspecialidad();
+        }
+    }
+
+    private void dialogoNoEspecialidad(){
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.
+                AlertDialog.Builder(getActivity());
+        builder.setTitle("No se encuentra disponible un doctor para la especialidad");
+        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        builder.show();
     }
 
     private void leerMedicos() {
@@ -176,19 +221,23 @@ public class PacienteFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onSuccess(DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    if (snapshot.child(Medico.ESTADO).getValue().equals(true)){
-
-                        uidMedico.add(snapshot.child(Medico.UID).getValue().toString());
-                        nombreMedico.add(snapshot.child(Medico.USERNAME).getValue().toString());
-                        photoMedico.add(snapshot.child(Medico.PHOTO_PERFIL).getValue().toString());
-                        especialidadMedico.add(snapshot.child(Medico.ESPECIALIDADES).getValue().toString());
-                        fechasMedico.add(snapshot.child(Medico.FECHAS).getValue().toString());
-                        turnoMedico.add(snapshot.child(Medico.TURNOS).getValue().toString());
+                    if (snapshot.child(Doctor.ESTADO).getValue().equals(true)){
+                        uidDoctor.add(snapshot.child(Doctor.UID).getValue().toString());
+                        nombreMedico.add(snapshot.child(Doctor.USERNAME).getValue().toString());
+                        photoMedico.add(snapshot.child(Doctor.PHOTO_PERFIL).getValue().toString());
+                        especialidadMedico.add(snapshot.child(Doctor.ESPECIALIDADES).getValue().toString());
+                        fechasMedico.add(snapshot.child(Doctor.FECHAS).getValue().toString());
+                        turnoMedico.add(snapshot.child(Doctor.TURNOS).getValue().toString());
                         tamaño++;
                     }
                 }
                 if (tamaño > 0) {
+                    btnVerConsulta.setVisibility(View.VISIBLE);
+                    llEspecialidades.setVisibility(View.GONE);
                     leerPaciente();
+                }else {
+                    btnVerConsulta.setVisibility(View.GONE);
+                    llEspecialidades.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -217,24 +266,28 @@ public class PacienteFragment extends Fragment implements View.OnClickListener {
                                     addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
                                         @Override
                                         public void onSuccess(DataSnapshot dataSnapshot) {
-                                            ListaConsultas listaConsultas = new ListaConsultas(
-                                                    dataSnapshot.child(ListaConsultas.UID).getValue().toString(),
-                                                    dataSnapshot.child(ListaConsultas.FOTO_DOCTOR).getValue().toString(),
-                                                    dataSnapshot.child(ListaConsultas.NOMBRE_DOCTOR).getValue().toString(),
-                                                    dataSnapshot.child(ListaConsultas.FOTO_PACIENTE).getValue().toString(),
-                                                    dataSnapshot.child(ListaConsultas.NOMBRE_PACIENTE).getValue().toString(),
-                                                    dataSnapshot.child(ListaConsultas.TURNO).getValue().toString(),
-                                                    dataSnapshot.child(ListaConsultas.FECHA).getValue().toString(),
-                                                    dataSnapshot.child(ListaConsultas.ESPECIALIDAD).getValue().toString()
+                                            llEspecialidades.setVisibility(View.GONE);
+                                            ListaConsulta listaConsulta = new ListaConsulta(
+                                                    dataSnapshot.child(ListaConsulta.UID).getValue().toString(),
+                                                    dataSnapshot.child(ListaConsulta.UID_DOCTOR).getValue().toString(),
+                                                    dataSnapshot.child(ListaConsulta.UID_PACIENTE).getValue().toString(),
+                                                    dataSnapshot.child(ListaConsulta.FOTO_DOCTOR).getValue().toString(),
+                                                    dataSnapshot.child(ListaConsulta.NOMBRE_DOCTOR).getValue().toString(),
+                                                    dataSnapshot.child(ListaConsulta.FOTO_PACIENTE).getValue().toString(),
+                                                    dataSnapshot.child(ListaConsulta.NOMBRE_PACIENTE).getValue().toString(),
+                                                    dataSnapshot.child(ListaConsulta.TURNO).getValue().toString(),
+                                                    dataSnapshot.child(ListaConsulta.FECHA).getValue().toString(),
+                                                    dataSnapshot.child(ListaConsulta.ESPECIALIDAD).getValue().toString(),
+                                                    dataSnapshot.child(ListaConsulta.ESTADO).getValue().toString()
                                             );
 
                                             args.putString("especialidad", btnMedicinaFamiliar.getText().toString());
-                                            args.putString("fotoMedico", listaConsultas.getFoto_doctor());
-                                            args.putString("nombreMedico", listaConsultas.getNombre_doctor());
-                                            args.putString("fechaMedico", listaConsultas.getFecha());
-                                            args.putString("turnoMedico", listaConsultas.getTurno());
-                                            args.putString("fotoPaciente", listaConsultas.getFoto_paciente());
-                                            args.putString("nombrePaciente", listaConsultas.getNombre_paciente());
+                                            args.putString("fotoMedico", listaConsulta.getFoto_doctor());
+                                            args.putString("nombreMedico", listaConsulta.getNombre_doctor());
+                                            args.putString("fechaMedico", listaConsulta.getFecha());
+                                            args.putString("turnoMedico", listaConsulta.getTurno());
+                                            args.putString("fotoPaciente", listaConsulta.getFoto_paciente());
+                                            args.putString("nombrePaciente", listaConsulta.getNombre_paciente());
                                             DialogFragmentVerEspecialidad dialogFragmentVerEspecialidad = new DialogFragmentVerEspecialidad();
                                             assert getFragmentManager() != null;
                                             dialogFragmentVerEspecialidad.setArguments(args);
@@ -244,10 +297,31 @@ public class PacienteFragment extends Fragment implements View.OnClickListener {
                                     });
 
                         }else {
+                            btnVerConsulta.setVisibility(View.GONE);
                             llEspecialidades.setVisibility(View.VISIBLE);
                         }
                     }
                 });
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        handler = new Handler();
+        runnable = new Runnable() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void run() {
+                //leerPaciente();
+                handler.postDelayed(this, PERIODO);
+            }
+        };
+        handler.postDelayed(runnable, PERIODO);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        handler.removeCallbacks(runnable);
     }
 }

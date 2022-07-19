@@ -18,8 +18,8 @@
             <ImageView
                 android:id="@+id/iv_paciente"
                 android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:src="@drawable/ic_launcher_background"/>
+                android:layout_height="100dp"
+                android:src="@drawable/paciente_icon"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -40,22 +40,22 @@
                     android:gravity="center|left"/>
 
                 <TextView
-                    android:id="@+id/tv_consulta"
+                    android:id="@+id/tv_telefono"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/standard_3"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:text="Consulta"
-                    android:textColor="@color/red_a700"
+                    android:text="Telefono"
+                    android:textColor="@color/black"
                     android:gravity="center|left"/>
 
                 <TextView
-                    android:id="@+id/tv_hora"
+                    android:id="@+id/tv_registro"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/standard_3"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:text="Hora"
+                    android:text="Registro"
                     android:textColor="@color/red_a700"
                     android:gravity="center|left"/>
 

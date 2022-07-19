@@ -25,9 +25,9 @@
 
         <TextView
             android:id="@+id/tv_registro"
-            android:layout_width="320dp"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:text="@string/configure_account"
+            android:text="CONFIGURAR CUENTA ADMINISTRADOR"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textStyle="bold"
             android:textColor="@color/black"
@@ -56,7 +56,7 @@
             android:layout_width="84dp"
             android:layout_height="84dp"
             android:layout_marginRight="@dimen/standard_5"
-            android:src="@drawable/ic_person" />
+            android:src="@drawable/administrador_icon" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -170,7 +170,6 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
-
     <Button
         android:id="@+id/btn_guardar_cambios"
         android:layout_width="@dimen/standard_200"
@@ -178,6 +177,7 @@
         android:layout_below="@id/til_telephone"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/standard_12"
-        android:text="GUARDAR" />
+        android:text="GUARDAR"
+        android:textColor="@color/white"/>
 
 </RelativeLayout>

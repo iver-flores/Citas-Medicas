@@ -32,6 +32,31 @@
         <entry key="..\:/Users/iverf/AndroidStudioProjects/Java/Citas-Medicas/app/src/main/res/layout/item_historial_listview.xml" value="0.29713552800342025" />
         <entry key="..\:/Users/iverf/AndroidStudioProjects/Java/Citas-Medicas/app/src/main/res/layout/item_medico_listview.xml" value="0.29628046173578454" />
         <entry key="..\:/Users/iverf/AndroidStudioProjects/Java/Citas-Medicas/app/src/main/res/layout/item_paciente_listview.xml" value="0.29713552800342025" />
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1155" />
+        <entry key="app/src/main/res/drawable/curvatura_azul.xml" value="0.116" />
+        <entry key="app/src/main/res/drawable/ic_delete.xml" value="0.116" />
+        <entry key="app/src/main/res/drawable/ic_exit.xml" value="0.116" />
+        <entry key="app/src/main/res/drawable/ic_info.xml" value="0.116" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1155" />
+        <entry key="app/src/main/res/drawable/ic_paste.xml" value="0.121" />
+        <entry key="app/src/main/res/drawable/ic_person.xml" value="0.116" />
+        <entry key="app/src/main/res/layout/activity_citas_medicas.xml" value="0.21197916666666666" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.15" />
+        <entry key="app/src/main/res/layout/content_main.xml" value="0.21197916666666666" />
+        <entry key="app/src/main/res/layout/dialog_about.xml" value="0.21197916666666666" />
+        <entry key="app/src/main/res/layout/dialog_fragment_account_administrador.xml" value="0.17314814814814813" />
+        <entry key="app/src/main/res/layout/dialog_fragment_account_doctor.xml" value="0.21197916666666666" />
+        <entry key="app/src/main/res/layout/dialog_fragment_account_paciente.xml" value="0.21197916666666666" />
+        <entry key="app/src/main/res/layout/dialog_fragment_detalle_consulta.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/dialog_fragment_ver_especialidad.xml" value="0.21197916666666666" />
+        <entry key="app/src/main/res/layout/dialog_fragment_ver_funcion.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_administrador.xml" value="0.21197916666666666" />
+        <entry key="app/src/main/res/layout/fragment_doctor.xml" value="0.19" />
+        <entry key="app/src/main/res/layout/fragment_paciente.xml" value="0.21197916666666666" />
+        <entry key="app/src/main/res/layout/item_consulta_listview.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/item_doctor_listview.xml" value="0.21197916666666666" />
+        <entry key="app/src/main/res/layout/item_historial_listview.xml" value="0.21197916666666666" />
+        <entry key="app/src/main/res/layout/item_paciente_listview.xml" value="0.21197916666666666" />
       </map>
     </option>
   </component>

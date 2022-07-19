@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 
+import android.content.pm.ActivityInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -42,6 +44,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        if (android.os.Build.VERSION.SDK_INT != Build.VERSION_CODES.O) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
 
         conexion = new Conexion();
 
@@ -107,7 +113,7 @@ public class LoginActivity extends AppCompatActivity {
                 .setAvailableProviders(Arrays.asList(new AuthUI.IdpConfig.EmailBuilder().build(),
                         googleIdp))
                 .setTheme(R.style.BaseTheme)
-                .setLogo(R.mipmap.ic_launcher)
+                .setLogo(R.drawable.logo)
                 .build(), RC_SING_IN);
     }
 

@@ -25,9 +25,9 @@
 
         <TextView
             android:id="@+id/tv_registro"
-            android:layout_width="320dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:text="@string/configure_account"
+            android:text="CONFIGURAR CUENTA DOCTOR"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textStyle="bold"
             android:textColor="@color/black"
@@ -56,7 +56,7 @@
             android:layout_width="84dp"
             android:layout_height="84dp"
             android:layout_marginRight="@dimen/standard_5"
-            android:src="@drawable/ic_person" />
+            android:src="@drawable/doctor_icon" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -178,6 +178,7 @@
         android:layout_below="@id/til_telephone"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:text="GUARDAR" />
+        android:text="GUARDAR"
+        android:textColor="@color/white"/>
 
 </RelativeLayout>

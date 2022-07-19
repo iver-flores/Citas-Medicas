@@ -82,7 +82,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:text="Nombre del medico"
+                    android:text="Nombre del doctor"
                     android:textColor="@color/black"
                     android:gravity="center|left"/>
 
@@ -183,7 +183,8 @@
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/standard_3"
             android:layout_marginRight="@dimen/standard_3"
-            android:text="PROGRAMAR FECHA"/>
+            android:text="PROGRAMAR FECHA"
+            android:textColor="@color/white"/>
 
         <Button
             android:id="@+id/btn_programar_consulta"
@@ -192,7 +193,8 @@
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/standard_3"
             android:layout_marginRight="@dimen/standard_3"
-            android:text="PROGRAMAR CONSULTA"/>
+            android:text="PROGRAMAR CONSULTA"
+            android:textColor="@color/white"/>
 
     </LinearLayout>
 

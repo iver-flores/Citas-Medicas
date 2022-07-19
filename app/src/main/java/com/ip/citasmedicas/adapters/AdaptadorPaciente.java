@@ -53,7 +53,7 @@ public class AdaptadorPaciente extends BaseAdapter {
     static class Holder {
         //Propiedades
         ImageView ivImagenPaciente;
-        TextView tvNombre, tvEspecialidad, tvHora;
+        TextView tvNombre, tvTelefono, tvRegistro;
     }
 
 
@@ -69,8 +69,8 @@ public class AdaptadorPaciente extends BaseAdapter {
         //Init item_customlistivew
         holder.ivImagenPaciente =  rowView.findViewById(R.id.iv_paciente);
         holder.tvNombre =  rowView.findViewById(R.id.tv_nombre_paciente);
-        holder.tvEspecialidad =  rowView.findViewById(R.id.tv_consulta);
-        holder.tvHora =  rowView.findViewById(R.id.tv_hora);
+        holder.tvTelefono =  rowView.findViewById(R.id.tv_telefono);
+        holder.tvRegistro =  rowView.findViewById(R.id.tv_registro);
 
         RequestOptions options = new RequestOptions()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -81,9 +81,8 @@ public class AdaptadorPaciente extends BaseAdapter {
                 .into(holder.ivImagenPaciente);
 
         holder.tvNombre.setText(listaPaciente.getNombre());
-        holder.tvEspecialidad.setText(listaPaciente.getEspecialidades());
-        holder.tvHora.setText(listaPaciente.getHoras());
-
+        holder.tvTelefono.setText("Teléfono: "+listaPaciente.getTelefono());
+        holder.tvRegistro.setText("Registro medico: "+listaPaciente.getRegistro());
         return rowView;
     }
 }

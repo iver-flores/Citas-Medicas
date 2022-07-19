@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:mapbox="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center">
-
 
     <LinearLayout
         android:id="@+id/ll_usuario"
@@ -15,19 +13,40 @@
         android:layout_margin="@dimen/standard_12"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btn_ver_doctor"
-            android:layout_width="@dimen/standard_200"
-            android:layout_height="wrap_content"
+        <ImageButton
+            android:id="@+id/ib_ver_doctor"
+            android:layout_width="@dimen/standard_100"
+            android:layout_height="@dimen/standard_100"
             android:layout_marginBottom="@dimen/standard_5"
+            android:background="@drawable/doctor_lista"
             android:text="VER MEDICO" />
 
-        <Button
-            android:id="@+id/btn_ver_paciente"
+        <TextView
             android:layout_width="@dimen/standard_200"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="LISTA DE DOCTORES"
+            android:textColor="@color/black"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_marginTop="@dimen/about_vertical_paddingTop"/>
+
+        <ImageButton
+            android:id="@+id/ib_ver_paciente"
+            android:layout_width="@dimen/standard_100"
+            android:layout_height="@dimen/standard_100"
             android:layout_marginBottom="@dimen/standard_5"
+            android:background="@drawable/paciente_lista"
             android:text="VER PACIENTE" />
+
+        <TextView
+            android:layout_width="@dimen/standard_200"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="LISTA DE PACIENTES"
+            android:textColor="@color/black"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_marginTop="@dimen/about_vertical_paddingTop"/>
+
 
     </LinearLayout>
 
@@ -40,12 +59,22 @@
         android:layout_margin="@dimen/standard_12"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btn_ver_historial"
+        <ImageButton
+            android:id="@+id/ib_ver_historial"
+            android:layout_width="@dimen/standard_100"
+            android:layout_height="@dimen/standard_100"
+            android:layout_marginBottom="@dimen/standard_5"
+            android:background="@drawable/registros"
+            android:text="HISTORIAL" />
+
+        <TextView
             android:layout_width="@dimen/standard_200"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/standard_5"
-            android:text="HISTORIAL" />
+            android:gravity="center"
+            android:text="REGISTROS"
+            android:textColor="@color/black"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_marginTop="@dimen/about_vertical_paddingTop"/>
 
     </LinearLayout>
 

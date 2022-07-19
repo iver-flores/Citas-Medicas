@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -36,7 +37,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.ip.citasmedicas.R;
 import com.ip.citasmedicas.activities.CitasMedicasActivity;
-import com.ip.citasmedicas.entidades.Medico;
+import com.ip.citasmedicas.entidades.Doctor;
 import com.ip.citasmedicas.entidades.Paciente;
 import com.ip.citasmedicas.entidades.RutasRealtime;
 import com.ip.citasmedicas.utils.Validacion;
@@ -83,13 +84,13 @@ public class DialogFragmentAccountDoctor extends DialogFragment implements View.
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        uid = getArguments().getString(Medico.UID);
-        user = getArguments().getString(Medico.USERNAME);
-        email = getArguments().getString(Medico.EMAIL);
-        ci = getArguments().getString(Medico.CI);
-        telefono = getArguments().getString(Medico.TELEPHONE);
-        fotoPerfil = getArguments().getString(Medico.PHOTO_PERFIL);
-        estado = getArguments().getBoolean(Medico.ESTADO);
+        uid = getArguments().getString(Doctor.UID);
+        user = getArguments().getString(Doctor.USERNAME);
+        email = getArguments().getString(Doctor.EMAIL);
+        ci = getArguments().getString(Doctor.CI);
+        telefono = getArguments().getString(Doctor.TELEPHONE);
+        fotoPerfil = getArguments().getString(Doctor.PHOTO_PERFIL);
+        estado = getArguments().getBoolean(Doctor.ESTADO);
 
         validacion = new Validacion();
 
@@ -104,6 +105,7 @@ public class DialogFragmentAccountDoctor extends DialogFragment implements View.
         tvEmail.setText("Email: " + email);
         if (estado){
             tvEstado.setText("Estado: Habilitado");
+            tvEstado.setTextColor(Color.GREEN);
         }else {
             tvEstado.setText("Estado: Deshabilitado");
         }
@@ -193,7 +195,11 @@ public class DialogFragmentAccountDoctor extends DialogFragment implements View.
                         actualizarDatos(telefono, ci, fotoPerfil);
                         ((CitasMedicasActivity)getActivity()).actualizarDoctor();
                         dialogoRegistro();
+                    }else {
+                        verificarFoto();
                     }
+                }else {
+                    verificarFoto();
                 }
                 break;
         }
@@ -243,15 +249,15 @@ public class DialogFragmentAccountDoctor extends DialogFragment implements View.
 
     private void actualizarDatos(String telefonoA, String ciA, String fotoPerfilA){
         mDatabase.child(RutasRealtime.PATH_DOCTOR).child(uid).child(Paciente.PHOTO_PERFIL).setValue(fotoPerfilA);
-        mDatabase.child(RutasRealtime.PATH_DOCTOR).child(uid).child(Medico.TELEPHONE).setValue(telefonoA);
-        mDatabase.child(RutasRealtime.PATH_DOCTOR).child(uid).child(Medico.CI).setValue(ciA);
+        mDatabase.child(RutasRealtime.PATH_DOCTOR).child(uid).child(Doctor.TELEPHONE).setValue(telefonoA);
+        mDatabase.child(RutasRealtime.PATH_DOCTOR).child(uid).child(Doctor.CI).setValue(ciA);
         mDatabase.child(RutasRealtime.PATH_DOCTOR).child(uid).child(Paciente.ESTADO).setValue(true);
     }
 
     private void dialogoRegistro(){
         androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(requireActivity());
-        builder.setTitle("Esperando Verificación");
-        builder.setMessage("¿Debe esperar que el administrador habilite su cuenta?");
+        builder.setTitle("Datos guardados correctamente!!");
+        builder.setCancelable(false);
         builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -261,5 +267,11 @@ public class DialogFragmentAccountDoctor extends DialogFragment implements View.
         builder.show();
     }
 
+    private void verificarFoto(){
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(requireActivity());
+        builder.setTitle("Verifique que la foto de perfil sea valida");
+        builder.setCancelable(true);
+        builder.show();
+    }
 
 }

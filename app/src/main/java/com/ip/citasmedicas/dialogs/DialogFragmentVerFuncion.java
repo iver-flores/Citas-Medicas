@@ -30,7 +30,8 @@ import com.ip.citasmedicas.R;
 import com.ip.citasmedicas.adapters.AdaptadorDoctor;
 import com.ip.citasmedicas.adapters.AdaptadorHistorial;
 import com.ip.citasmedicas.adapters.AdaptadorPaciente;
-import com.ip.citasmedicas.entidades.ListaMedico;
+import com.ip.citasmedicas.entidades.ListaConsulta;
+import com.ip.citasmedicas.entidades.ListaDoctor;
 import com.ip.citasmedicas.entidades.ListaPaciente;
 import com.ip.citasmedicas.entidades.RutasRealtime;
 
@@ -43,7 +44,8 @@ public class DialogFragmentVerFuncion extends DialogFragment implements View.OnC
     private TextView tvTitulo;
     private ListView lvDoctor, lvPaciente, lvHistorial;
     private ImageView ivDoctor;
-    private TextView tvNombre, tvEspecialidad, tvUno, tvDos, tvTres, tvCuatro, tvCinco, tvSeis;
+    private TextView tvNombre, tvEspecialidad, tvUno, tvDos, tvTres, tvCuatro, tvCinco, tvSeis
+            , tvSiete, tvOcho, tvNueve, tvDiez, tvOnce, tvDoce, tvTrece, tvCatorse;
     private Button btnGuardar;
 
     private LinearLayout llEspecialidades;
@@ -53,8 +55,9 @@ public class DialogFragmentVerFuncion extends DialogFragment implements View.OnC
     private FirebaseUser firebaseUser;
     private DatabaseReference mDatabase;
 
-    private ArrayList<ListaMedico> listaMedicos;
+    private ArrayList<ListaDoctor> listaDoctors;
     private ArrayList<ListaPaciente> listaPacientes;
+    private ArrayList<ListaConsulta> listaConsultas;
 
     private AdaptadorDoctor adaptadorDoctor;
     private AdaptadorPaciente adaptadorPaciente;
@@ -63,7 +66,9 @@ public class DialogFragmentVerFuncion extends DialogFragment implements View.OnC
     private ArrayList<String> listaEspecialidades;
 
     private String funcion = "", uidDoctor = "";
-    private Boolean uno = false, dos = false, tres = false, cuatro = false, cinco = false, seis = false;
+    private Boolean uno = false, dos = false, tres = false, cuatro = false, cinco = false,
+            seis = false, siete = false, ocho = false, nueve = false, diez = false, once = false,
+            doce = false, trece = false, catorse = false;
 
     @NonNull
     @Override
@@ -82,8 +87,9 @@ public class DialogFragmentVerFuncion extends DialogFragment implements View.OnC
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        listaMedicos = new ArrayList<>();
+        listaDoctors = new ArrayList<>();
         listaPacientes = new ArrayList<>();
+        listaConsultas = new ArrayList<>();
 
         init(v);
 
@@ -94,11 +100,10 @@ public class DialogFragmentVerFuncion extends DialogFragment implements View.OnC
                     addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
                         @Override
                         public void onSuccess(DataSnapshot dataSnapshot) {
-
                             for (DataSnapshot snapshot :dataSnapshot.getChildren()){
-                                final ListaMedico listaMedico = snapshot.getValue(ListaMedico.class);
-                                listaMedico.setId(snapshot.getKey());
-                                listaMedicos.add(listaMedico);
+                                final ListaDoctor listaDoctor = snapshot.getValue(ListaDoctor.class);
+                                listaDoctor.setId(snapshot.getKey());
+                                listaDoctors.add(listaDoctor);
                             }
                             configAdapterDoctor();
                         }
@@ -120,7 +125,20 @@ public class DialogFragmentVerFuncion extends DialogFragment implements View.OnC
                         }
                     });
         } else if (funcion.equals("historial")){
-
+            tvTitulo.setText("Lista de consultas");
+            lvHistorial.setVisibility(View.VISIBLE);
+            mDatabase.child(RutasRealtime.PATH_CONSULTAS).get().
+                    addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
+                        @Override
+                        public void onSuccess(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot snapshot :dataSnapshot.getChildren()){
+                                final ListaConsulta listaConsulta = snapshot.getValue(ListaConsulta.class);
+                                listaConsulta.setId(snapshot.getKey());
+                                listaConsultas.add(listaConsulta);
+                            }
+                            configAdapterConsulta();
+                        }
+                    });
         }
 
         return builder.create();
@@ -141,6 +159,14 @@ public class DialogFragmentVerFuncion extends DialogFragment implements View.OnC
         tvCuatro = view.findViewById(R.id.tv_cuatro);
         tvCinco = view.findViewById(R.id.tv_cinco);
         tvSeis = view.findViewById(R.id.tv_seis);
+        tvSiete = view.findViewById(R.id.tv_siete);
+        tvOcho = view.findViewById(R.id.tv_ocho);
+        tvNueve = view.findViewById(R.id.tv_nueve);
+        tvDiez = view.findViewById(R.id.tv_diez);
+        tvOnce = view.findViewById(R.id.tv_once);
+        tvDoce = view.findViewById(R.id.tv_doce);
+        tvTrece = view.findViewById(R.id.tv_trece);
+        tvCatorse = view.findViewById(R.id.tv_catorce);
         btnGuardar = view.findViewById(R.id.btn_guardar);
 
         llEspecialidades = view.findViewById(R.id.ll_especialidades);
@@ -151,6 +177,14 @@ public class DialogFragmentVerFuncion extends DialogFragment implements View.OnC
         tvCuatro.setOnClickListener(this);
         tvCinco.setOnClickListener(this);
         tvSeis.setOnClickListener(this);
+        tvSiete.setOnClickListener(this);
+        tvOcho.setOnClickListener(this);
+        tvNueve.setOnClickListener(this);
+        tvDiez.setOnClickListener(this);
+        tvOnce.setOnClickListener(this);
+        tvDoce.setOnClickListener(this);
+        tvTrece.setOnClickListener(this);
+        tvCatorse.setOnClickListener(this);
 
         ibAtras.setOnClickListener(this);
         btnGuardar.setOnClickListener(this);
@@ -220,12 +254,93 @@ public class DialogFragmentVerFuncion extends DialogFragment implements View.OnC
                 }
                 tvEspecialidad.setText(listaEspecialidades.toString().substring(1,listaEspecialidades.toString().length()-1));
                 break;
+            case R.id.tv_siete:
+                if (siete = !siete){
+                    tvSiete.setTextColor(Color.RED);
+                    listaEspecialidades.add(tvSiete.getText().toString());
+                }else {
+                    tvSiete.setTextColor(Color.WHITE);
+                    listaEspecialidades.remove(tvSiete.getText().toString());
+                }
+                tvEspecialidad.setText(listaEspecialidades.toString().substring(1,listaEspecialidades.toString().length()-1));
+                break;
+            case R.id.tv_ocho:
+                if (ocho = !ocho){
+                    tvOcho.setTextColor(Color.RED);
+                    listaEspecialidades.add(tvOcho.getText().toString());
+                }else {
+                    tvOcho.setTextColor(Color.WHITE);
+                    listaEspecialidades.remove(tvOcho.getText().toString());
+                }
+                tvEspecialidad.setText(listaEspecialidades.toString().substring(1,listaEspecialidades.toString().length()-1));
+                break;
+            case R.id.tv_nueve:
+                if (nueve = !nueve){
+                    tvNueve.setTextColor(Color.RED);
+                    listaEspecialidades.add(tvNueve.getText().toString());
+                }else {
+                    tvNueve.setTextColor(Color.WHITE);
+                    listaEspecialidades.remove(tvNueve.getText().toString());
+                }
+                tvEspecialidad.setText(listaEspecialidades.toString().substring(1,listaEspecialidades.toString().length()-1));
+                break;
+            case R.id.tv_diez:
+                if (diez = !diez){
+                    tvDiez.setTextColor(Color.RED);
+                    listaEspecialidades.add(tvDiez.getText().toString());
+                }else {
+                    tvDiez.setTextColor(Color.WHITE);
+                    listaEspecialidades.remove(tvDiez.getText().toString());
+                }
+                tvEspecialidad.setText(listaEspecialidades.toString().substring(1,listaEspecialidades.toString().length()-1));
+                break;
+            case R.id.tv_once:
+                if (once = !once){
+                    tvOnce.setTextColor(Color.RED);
+                    listaEspecialidades.add(tvOnce.getText().toString());
+                }else {
+                    tvOnce.setTextColor(Color.WHITE);
+                    listaEspecialidades.remove(tvOnce.getText().toString());
+                }
+                tvEspecialidad.setText(listaEspecialidades.toString().substring(1,listaEspecialidades.toString().length()-1));
+                break;
+            case R.id.tv_doce:
+                if (doce = !doce){
+                    tvDoce.setTextColor(Color.RED);
+                    listaEspecialidades.add(tvDoce.getText().toString());
+                }else {
+                    tvDoce.setTextColor(Color.WHITE);
+                    listaEspecialidades.remove(tvDoce.getText().toString());
+                }
+                tvEspecialidad.setText(listaEspecialidades.toString().substring(1,listaEspecialidades.toString().length()-1));
+                break;
+            case R.id.tv_trece:
+                if (trece = !trece){
+                    tvTrece.setTextColor(Color.RED);
+                    listaEspecialidades.add(tvTrece.getText().toString());
+                }else {
+                    tvTrece.setTextColor(Color.WHITE);
+                    listaEspecialidades.remove(tvTrece.getText().toString());
+                }
+                tvEspecialidad.setText(listaEspecialidades.toString().substring(1,listaEspecialidades.toString().length()-1));
+                break;
+            case R.id.tv_catorce:
+                if (catorse = !catorse){
+                    tvCatorse.setTextColor(Color.RED);
+                    listaEspecialidades.add(tvCatorse.getText().toString());
+                }else {
+                    tvCatorse.setTextColor(Color.WHITE);
+                    listaEspecialidades.remove(tvCatorse.getText().toString());
+                }
+                tvEspecialidad.setText(listaEspecialidades.toString().substring(1,listaEspecialidades.toString().length()-1));
+                break;
             case R.id.ib_atras:
                 dismiss();
                 break;
             case R.id.btn_guardar:
                 mDatabase.child(RutasRealtime.PATH_DOCTOR).child(uidDoctor).
                         child(RutasRealtime.ESPECIALIDADES).setValue(tvEspecialidad.getText().toString());
+                dismiss();
                 break;
         }
         if (tvEspecialidad.getText().toString().equals("")){
@@ -234,8 +349,8 @@ public class DialogFragmentVerFuncion extends DialogFragment implements View.OnC
     }
 
     private void configAdapterDoctor(){
-        if (listaMedicos.size() > 0){
-            adaptadorDoctor = new AdaptadorDoctor(requireActivity(), listaMedicos);
+        if (listaDoctors.size() > 0){
+            adaptadorDoctor = new AdaptadorDoctor(requireActivity(), listaDoctors);
             adaptadorDoctor.setCustomButtonListner(DialogFragmentVerFuncion.this);
             lvDoctor.setAdapter(adaptadorDoctor);
             lvDoctor.setSelection(adaptadorDoctor.getCount() - 1);
@@ -250,8 +365,16 @@ public class DialogFragmentVerFuncion extends DialogFragment implements View.OnC
         }
     }
 
+    private void configAdapterConsulta(){
+        if (listaConsultas.size() > 0){
+            adaptadorHistorial = new AdaptadorHistorial(getActivity(), listaConsultas);
+            lvHistorial.setAdapter(adaptadorHistorial);
+            lvHistorial.setSelection(adaptadorHistorial.getCount() - 1);
+        }
+    }
+
     @Override
-    public void onButtonClickVerListner(ListaMedico listaDoctores) {
+    public void onButtonClickVerListner(ListaDoctor listaDoctores) {
         lvDoctor.setVisibility(View.GONE);
         llEspecialidades.setVisibility(View.VISIBLE);
         uidDoctor = listaDoctores.getId();

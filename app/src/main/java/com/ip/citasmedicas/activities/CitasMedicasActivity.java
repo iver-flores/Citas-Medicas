@@ -11,16 +11,20 @@ import android.animation.Animator;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -39,7 +43,7 @@ import com.ip.citasmedicas.dialogs.DialogFragmentAccountAdministrador;
 import com.ip.citasmedicas.dialogs.DialogFragmentAccountDoctor;
 import com.ip.citasmedicas.dialogs.DialogFragmentAccountPaciente;
 import com.ip.citasmedicas.entidades.Administrador;
-import com.ip.citasmedicas.entidades.Medico;
+import com.ip.citasmedicas.entidades.Doctor;
 import com.ip.citasmedicas.entidades.Paciente;
 import com.ip.citasmedicas.entidades.RutasRealtime;
 import com.ip.citasmedicas.fragments.AdministradorFragment;
@@ -55,7 +59,8 @@ public class CitasMedicasActivity extends AppCompatActivity implements View.OnCl
     private static long  INTERVALO = 0;
 
     private LinearLayout llFuncion;
-    private Button btnAdministrador, btnDoctor, btnPaciente;
+    private ImageButton ibAdministrador, ibDoctor, ibPaciente;
+    private TextView tvMensaje;
 
     private LinearLayout llEliminarCuenta, llVerPerfil, llAcercaDe, llSalir;
     private FloatingActionButton fabEliminarCuenta, fabVerPerfil, fabAcercaDe, fabSalir, fabPrincipal1;
@@ -75,7 +80,7 @@ public class CitasMedicasActivity extends AppCompatActivity implements View.OnCl
     private Bundle args = new Bundle();
 
     private Paciente paciente;
-    private Medico medico;
+    private Doctor doctor;
     private Administrador administrador;
 
     private int registro = 0;
@@ -84,6 +89,10 @@ public class CitasMedicasActivity extends AppCompatActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_citas_medicas);
+
+        if (android.os.Build.VERSION.SDK_INT != Build.VERSION_CODES.O) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
 
         uid = getIntent().getExtras().getString("uid");
 
@@ -96,6 +105,7 @@ public class CitasMedicasActivity extends AppCompatActivity implements View.OnCl
         init();
 
         leerPaciente(uid);
+
     }
 
     private void leerPaciente(String uid) {
@@ -121,8 +131,8 @@ public class CitasMedicasActivity extends AppCompatActivity implements View.OnCl
                                         dataSnapshot.child(paciente.PHOTO_PERFIL).getValue().toString(),
                                         dataSnapshot.child(paciente.TELEPHONE).getValue().toString(),
                                         dataSnapshot.child(paciente.CI).getValue().toString(),
-                                        dataSnapshot.child(paciente.ESPECIALIDAD).getValue().toString(),
                                         dataSnapshot.child(paciente.REGISTRO).getValue().toString(),
+                                        dataSnapshot.child(paciente.ESPECIALIDAD).getValue().toString(),
                                         (Boolean) dataSnapshot.child(paciente.ESTADO).getValue()
                                 );
                                 if (paciente.isEstado()){
@@ -164,28 +174,33 @@ public class CitasMedicasActivity extends AppCompatActivity implements View.OnCl
                                 leerAdministrador(uid);
                             }else if (dataSnapshot.child(RutasRealtime.PATH_UID).getValue().equals(uid)){
                                 registro = 3;
-                                medico = new Medico(
-                                        dataSnapshot.child(medico.UID).getValue().toString(),
-                                        dataSnapshot.child(medico.USERNAME).getValue().toString(),
-                                        dataSnapshot.child(medico.EMAIL).getValue().toString(),
-                                        dataSnapshot.child(medico.PHOTO_PERFIL).getValue().toString(),
-                                        dataSnapshot.child(medico.TELEPHONE).getValue().toString(),
-                                        dataSnapshot.child(medico.CI).getValue().toString(),
-                                        (Boolean) dataSnapshot.child(medico.ESTADO).getValue()
+                                doctor = new Doctor(
+                                        dataSnapshot.child(doctor.UID).getValue().toString(),
+                                        dataSnapshot.child(doctor.USERNAME).getValue().toString(),
+                                        dataSnapshot.child(doctor.EMAIL).getValue().toString(),
+                                        dataSnapshot.child(doctor.PHOTO_PERFIL).getValue().toString(),
+                                        dataSnapshot.child(doctor.TELEPHONE).getValue().toString(),
+                                        dataSnapshot.child(doctor.CI).getValue().toString(),
+                                        dataSnapshot.child(doctor.ESPECIALIDADES).getValue().toString(),
+                                        (Boolean) dataSnapshot.child(doctor.ESTADO).getValue()
                                 );
-                                if (medico.isEstado()){
-                                    fragment = new DoctorFragment();
-                                    replaceFragment(fragment);
+                                if (doctor.isEstado()){
+                                    if (doctor.getEspecialidades().equals("0")){
+                                        tvMensaje.setVisibility(View.VISIBLE);
+                                    }else {
+                                        fragment = new DoctorFragment();
+                                        replaceFragment(fragment);
+                                    }
                                 }else {
                                     leerEstado(RutasRealtime.PATH_DOCTOR);
                                     DialogFragmentAccountDoctor dialogFragmentAccountDoctor =
                                             new DialogFragmentAccountDoctor();
                                     args.putString(RutasRealtime.UID, uid);
-                                    args.putString(RutasRealtime.USERNAME, medico.getUsername());
-                                    args.putString(RutasRealtime.EMAIL, medico.getEmail());
-                                    args.putString(RutasRealtime.PHOTO_PERFIL, medico.getPhoto_perfil());
-                                    args.putString(RutasRealtime.TELEPHONE, medico.getTelephone());
-                                    args.putString(RutasRealtime.CI, medico.getCi());
+                                    args.putString(RutasRealtime.USERNAME, doctor.getUsername());
+                                    args.putString(RutasRealtime.EMAIL, doctor.getEmail());
+                                    args.putString(RutasRealtime.PHOTO_PERFIL, doctor.getPhoto_perfil());
+                                    args.putString(RutasRealtime.TELEPHONE, doctor.getTelephone());
+                                    args.putString(RutasRealtime.CI, doctor.getCi());
                                     args.putBoolean(RutasRealtime.ESTADO, false);
                                     abrirFuncion(dialogFragmentAccountDoctor, args);
 
@@ -220,6 +235,7 @@ public class CitasMedicasActivity extends AppCompatActivity implements View.OnCl
                                         dataSnapshot.child(administrador.CI).getValue().toString(),
                                         (Boolean) dataSnapshot.child(administrador.ESTADO).getValue()
                                 );
+                                llFuncion.setVisibility(View.GONE);
                                 if (administrador.isEstado()){
                                     fragment = new AdministradorFragment();
                                     replaceFragment(fragment);
@@ -241,6 +257,11 @@ public class CitasMedicasActivity extends AppCompatActivity implements View.OnCl
                                 finishAffinity();
                             }
                         }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            llFuncion.setVisibility(View.VISIBLE);
+                        }
                     });
         }else {
             finishAffinity();
@@ -252,6 +273,9 @@ public class CitasMedicasActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void init() {
+
+        tvMensaje = findViewById(R.id.tv_mensaje);
+
         llEliminarCuenta = findViewById(R.id.ll_eliminar_cuenta);
         llAcercaDe = findViewById(R.id.ll_acerca_de);
         llVerPerfil = findViewById(R.id.ll_ver_perfil);
@@ -264,9 +288,9 @@ public class CitasMedicasActivity extends AppCompatActivity implements View.OnCl
         fabSalir = findViewById(R.id.fab_salir);
 
         llFuncion = findViewById(R.id.ll_funcion);
-        btnAdministrador = findViewById(R.id.btn_administrador);
-        btnDoctor = findViewById(R.id.btn_doctor);
-        btnPaciente = findViewById(R.id.btn_paciente);
+        ibAdministrador = findViewById(R.id.ib_administrador);
+        ibDoctor = findViewById(R.id.ib_doctor);
+        ibPaciente = findViewById(R.id.ib_paciente);
 
         fabBGLayout = findViewById(R.id.fabBGLayout);
 
@@ -276,9 +300,9 @@ public class CitasMedicasActivity extends AppCompatActivity implements View.OnCl
         fabVerPerfil.setOnClickListener(this);
         fabSalir.setOnClickListener(this);
 
-        btnAdministrador.setOnClickListener(this);
-        btnDoctor.setOnClickListener(this);
-        btnPaciente.setOnClickListener(this);
+        ibAdministrador.setOnClickListener(this);
+        ibDoctor.setOnClickListener(this);
+        ibPaciente.setOnClickListener(this);
 
         fabBGLayout.setOnClickListener(this);
     }
@@ -301,9 +325,9 @@ public class CitasMedicasActivity extends AppCompatActivity implements View.OnCl
                 if (registro == 2){
                     eliminarCuenta(RutasRealtime.PATH_PACIENTE,paciente.getEmail());
                 }else if (registro == 3){
-                    eliminarCuenta(RutasRealtime.PATH_PACIENTE, medico.getEmail());
+                    eliminarCuenta(RutasRealtime.PATH_DOCTOR, doctor.getEmail());
                 }else if (registro == 4){
-                    eliminarCuenta(RutasRealtime.PATH_PACIENTE, administrador.getEmail());
+                    eliminarCuenta(RutasRealtime.PATH_ADMINISTRADOR, administrador.getEmail());
                 }
                 break;
             case R.id.fab_acerca_de:
@@ -320,18 +344,18 @@ public class CitasMedicasActivity extends AppCompatActivity implements View.OnCl
                     args.putString(RutasRealtime.TELEPHONE, paciente.getTelephone());
                     args.putString(RutasRealtime.CI, paciente.getCi());
                     args.putString(RutasRealtime.REGISTRO, paciente.getRegistro());
-                    args.putBoolean(RutasRealtime.ESTADO, false);
+                    args.putBoolean(RutasRealtime.ESTADO, paciente.isEstado());
                     abrirFuncion(dialogFragmentAccountPaciente, args);
                 }else if (registro == 3){
                     DialogFragmentAccountDoctor dialogFragmentAccountDoctor =
                             new DialogFragmentAccountDoctor();
                     args.putString(RutasRealtime.UID, uid);
-                    args.putString(RutasRealtime.USERNAME, medico.getUsername());
-                    args.putString(RutasRealtime.EMAIL, medico.getEmail());
-                    args.putString(RutasRealtime.PHOTO_PERFIL, medico.getPhoto_perfil());
-                    args.putString(RutasRealtime.TELEPHONE, medico.getTelephone());
-                    args.putString(RutasRealtime.CI, medico.getCi());
-                    args.putBoolean(RutasRealtime.ESTADO, false);
+                    args.putString(RutasRealtime.USERNAME, doctor.getUsername());
+                    args.putString(RutasRealtime.EMAIL, doctor.getEmail());
+                    args.putString(RutasRealtime.PHOTO_PERFIL, doctor.getPhoto_perfil());
+                    args.putString(RutasRealtime.TELEPHONE, doctor.getTelephone());
+                    args.putString(RutasRealtime.CI, doctor.getCi());
+                    args.putBoolean(RutasRealtime.ESTADO, doctor.isEstado());
                     abrirFuncion(dialogFragmentAccountDoctor, args);
                 }else if (registro == 4) {
                     DialogFragmentAccountAdministrador dialogFragmentAccountadministrador =
@@ -342,7 +366,7 @@ public class CitasMedicasActivity extends AppCompatActivity implements View.OnCl
                     args.putString(RutasRealtime.PHOTO_PERFIL, administrador.getPhoto_perfil());
                     args.putString(RutasRealtime.TELEPHONE, administrador.getTelephone());
                     args.putString(RutasRealtime.CI, administrador.getCi());
-                    args.putBoolean(RutasRealtime.ESTADO, false);
+                    args.putBoolean(RutasRealtime.ESTADO, administrador.isEstado());
                     abrirFuncion(dialogFragmentAccountadministrador, args);
                 }
                 break;
@@ -356,66 +380,14 @@ public class CitasMedicasActivity extends AppCompatActivity implements View.OnCl
                 }
                 break;
 
-            case R.id.btn_administrador:
-                DialogFragmentAccountAdministrador dialogFragmentAccountAdministrador = new DialogFragmentAccountAdministrador();
-                if (registro == 1) {
-                    Administrador administrador = new Administrador(uid, user, email, "0",
-                            "+57", "0", false);
-                    Map<String, Object> administradorValues = administrador.toAdministrador();
-                    mDatabase.child(RutasRealtime.PATH_ADMINISTRADOR).child(uid).updateChildren(administradorValues);
-                    args.putString(RutasRealtime.UID, uid);
-                    args.putString(RutasRealtime.USERNAME, user);
-                    args.putString(RutasRealtime.EMAIL, email);
-                    args.putString(RutasRealtime.PHOTO_PERFIL, "0");
-                    args.putString(RutasRealtime.TELEPHONE, "+57");
-                    args.putString(RutasRealtime.CI, "0");
-                    args.putBoolean(RutasRealtime.ESTADO, false);
-                    leerEstado(RutasRealtime.PATH_ADMINISTRADOR);
-                }
-                abrirFuncion(dialogFragmentAccountAdministrador, args);
+            case R.id.ib_administrador:
+                verificarFuncion("administrador");
                 break;
-            case R.id.btn_doctor:
-                DialogFragmentAccountDoctor dialogFragmentAccountDoctor = new DialogFragmentAccountDoctor();
-                if (registro == 1) {
-                    Medico medico = new Medico(uid, user, email, "0", "+57", "0",
-                            "0", "0", "0", "0", false);
-                    Map<String, Object> doctorValues = medico.toDoctor();
-                    mDatabase.child(RutasRealtime.PATH_DOCTOR).child(uid).updateChildren(doctorValues);
-                    args.putString(RutasRealtime.UID, uid);
-                    args.putString(RutasRealtime.USERNAME, user);
-                    args.putString(RutasRealtime.EMAIL, email);
-                    args.putString(RutasRealtime.PHOTO_PERFIL, "0");
-                    args.putString(RutasRealtime.TELEPHONE, "+57");
-                    args.putString(RutasRealtime.CI, "0");
-                    args.putString(RutasRealtime.ESPECIALIDADES, "0");
-                    args.putString(RutasRealtime.PACIENTES, "0");
-                    args.putString(RutasRealtime.HORAS, "0");
-                    args.putBoolean(RutasRealtime.ESTADO, false);
-                    leerEstado(RutasRealtime.PATH_DOCTOR);
-                }
-                abrirFuncion(dialogFragmentAccountDoctor, args);
+            case R.id.ib_doctor:
+                verificarFuncion("doctor");
                 break;
-            case R.id.btn_paciente:
-                DialogFragmentAccountPaciente dialogFragmentAccountPaciente = new DialogFragmentAccountPaciente();
-                if (registro == 1) {
-                    Paciente paciente = new Paciente(uid, user, email, "0",
-                            "+57", "0", "0", "0", "0", "0", false);
-                    Map<String, Object> pacienteValues = paciente.toPaciente();
-                    mDatabase.child(RutasRealtime.PATH_PACIENTE).child(uid).updateChildren(pacienteValues);
-                    args.putString(RutasRealtime.UID, uid);
-                    args.putString(RutasRealtime.USERNAME, user);
-                    args.putString(RutasRealtime.EMAIL, email);
-                    args.putString(RutasRealtime.PHOTO_PERFIL, "0");
-                    args.putString(RutasRealtime.TELEPHONE, "+57");
-                    args.putString(RutasRealtime.CI, "0");
-                    args.putString(RutasRealtime.REGISTRO, "0");
-                    args.putString(RutasRealtime.ESPECIALIDADES, "0");
-                    args.putString(RutasRealtime.HORAS, "0");
-                    args.putString(RutasRealtime.PATH_DOCTOR, "0");
-                    args.putBoolean(RutasRealtime.ESTADO, false);
-                    leerEstado(RutasRealtime.PATH_PACIENTE);
-                }
-                abrirFuncion(dialogFragmentAccountPaciente, args);
+            case R.id.ib_paciente:
+                verificarFuncion("paciente");
                 break;
         }
     }
@@ -515,6 +487,7 @@ public class CitasMedicasActivity extends AppCompatActivity implements View.OnCl
                 }
                 registro = 2;
                 llFuncion.setVisibility(View.GONE);
+                leerPaciente(uid);
             }
         });
     }
@@ -525,18 +498,20 @@ public class CitasMedicasActivity extends AppCompatActivity implements View.OnCl
                     @Override
                     public void onComplete(@NonNull Task<DataSnapshot> task) {
                         if (task.isSuccessful()) {
-                            medico = new Medico(
-                                    task.getResult().child(medico.UID).getValue().toString(),
-                                    task.getResult().child(medico.USERNAME).getValue().toString(),
-                                    task.getResult().child(medico.EMAIL).getValue().toString(),
-                                    task.getResult().child(medico.PHOTO_PERFIL).getValue().toString(),
-                                    task.getResult().child(medico.TELEPHONE).getValue().toString(),
-                                    task.getResult().child(medico.CI).getValue().toString(),
-                                    (Boolean) task.getResult().child(medico.ESTADO).getValue()
+                            doctor = new Doctor(
+                                    task.getResult().child(doctor.UID).getValue().toString(),
+                                    task.getResult().child(doctor.USERNAME).getValue().toString(),
+                                    task.getResult().child(doctor.EMAIL).getValue().toString(),
+                                    task.getResult().child(doctor.PHOTO_PERFIL).getValue().toString(),
+                                    task.getResult().child(doctor.TELEPHONE).getValue().toString(),
+                                    task.getResult().child(doctor.CI).getValue().toString(),
+                                    task.getResult().child(doctor.ESPECIALIDADES).getValue().toString(),
+                                    (Boolean) task.getResult().child(doctor.ESTADO).getValue()
                             );
                         }
                         registro = 3;
                         llFuncion.setVisibility(View.GONE);
+                        leerDoctor(uid);
                     }
                 });
     }
@@ -559,6 +534,7 @@ public class CitasMedicasActivity extends AppCompatActivity implements View.OnCl
                         }
                         registro = 4;
                         llFuncion.setVisibility(View.GONE);
+                        leerAdministrador(uid);
                     }
                 });
     }
@@ -621,9 +597,85 @@ public class CitasMedicasActivity extends AppCompatActivity implements View.OnCl
             public void onClick(DialogInterface dialog, int which) {
                 mCloudMessagingAPI.unsubscribeToMyTopic(emailE);
                 AuthUI.getInstance().signOut(CitasMedicasActivity.this);
-                mDatabase.child(rutaE).child(uid).
-                        child(RutasRealtime.PATH_ESTADO).setValue(false);
+                mDatabase.child(rutaE).child(uid).child(RutasRealtime.ESTADO).setValue(false);
+
+                //mDatabase.child(rutaE).child(uid).removeValue();
                 finishAffinity();
+            }
+        }).setNegativeButton("Cancelar", null);
+        builder.show();
+    }
+
+    private void verificarFuncion(String funcion){
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(this);
+        builder.setTitle("¡Esta seguro de ser " + funcion + "?");
+        builder.setMessage("Si continua no podra revertir esta funcion.");
+        builder.setIcon(android.R.drawable.ic_lock_idle_low_battery);
+        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (funcion.equals("administrador")) {
+                    llFuncion.setVisibility(View.GONE);
+                    DialogFragmentAccountAdministrador dialogFragmentAccountAdministrador = new DialogFragmentAccountAdministrador();
+                    if (registro == 1) {
+                        Administrador administrador = new Administrador(uid, user, email, "0",
+                                "+57", "0", false);
+                        Map<String, Object> administradorValues = administrador.toAdministrador();
+                        mDatabase.child(RutasRealtime.PATH_ADMINISTRADOR).child(uid).updateChildren(administradorValues);
+                        args.putString(RutasRealtime.UID, uid);
+                        args.putString(RutasRealtime.USERNAME, user);
+                        args.putString(RutasRealtime.EMAIL, email);
+                        args.putString(RutasRealtime.PHOTO_PERFIL, "0");
+                        args.putString(RutasRealtime.TELEPHONE, "+57");
+                        args.putString(RutasRealtime.CI, "0");
+                        args.putBoolean(RutasRealtime.ESTADO, false);
+                        leerEstado(RutasRealtime.PATH_ADMINISTRADOR);
+                    }
+                    abrirFuncion(dialogFragmentAccountAdministrador, args);
+                } else if (funcion.equals("doctor")) {
+                    llFuncion.setVisibility(View.GONE);
+                    DialogFragmentAccountDoctor dialogFragmentAccountDoctor = new DialogFragmentAccountDoctor();
+                    if (registro == 1) {
+                        Doctor doctor = new Doctor(uid, user, email, "0", "+57", "0",
+                                "0", "0", "0", "0", false);
+                        Map<String, Object> doctorValues = doctor.toDoctor();
+                        mDatabase.child(RutasRealtime.PATH_DOCTOR).child(uid).updateChildren(doctorValues);
+                        args.putString(RutasRealtime.UID, uid);
+                        args.putString(RutasRealtime.USERNAME, user);
+                        args.putString(RutasRealtime.EMAIL, email);
+                        args.putString(RutasRealtime.PHOTO_PERFIL, "0");
+                        args.putString(RutasRealtime.TELEPHONE, "+57");
+                        args.putString(RutasRealtime.CI, "0");
+                        args.putString(RutasRealtime.ESPECIALIDADES, "0");
+                        args.putString(RutasRealtime.PACIENTES, "0");
+                        args.putString(RutasRealtime.HORAS, "0");
+                        args.putBoolean(RutasRealtime.ESTADO, false);
+                        leerEstado(RutasRealtime.PATH_DOCTOR);
+                    }
+                    abrirFuncion(dialogFragmentAccountDoctor, args);
+                } else if (funcion.equals("paciente")) {
+                    llFuncion.setVisibility(View.GONE);
+                    DialogFragmentAccountPaciente dialogFragmentAccountPaciente = new DialogFragmentAccountPaciente();
+                    if (registro == 1) {
+                        Paciente paciente = new Paciente(uid, user, email, "0",
+                                "+57", "0", "0", "0", "0", "0", false);
+                        Map<String, Object> pacienteValues = paciente.toPaciente();
+                        mDatabase.child(RutasRealtime.PATH_PACIENTE).child(uid).updateChildren(pacienteValues);
+                        args.putString(RutasRealtime.UID, uid);
+                        args.putString(RutasRealtime.USERNAME, user);
+                        args.putString(RutasRealtime.EMAIL, email);
+                        args.putString(RutasRealtime.PHOTO_PERFIL, "0");
+                        args.putString(RutasRealtime.TELEPHONE, "+57");
+                        args.putString(RutasRealtime.CI, "0");
+                        args.putString(RutasRealtime.REGISTRO, "0");
+                        args.putString(RutasRealtime.ESPECIALIDADES, "0");
+                        args.putString(RutasRealtime.HORAS, "0");
+                        args.putString(RutasRealtime.PATH_DOCTOR, "0");
+                        args.putBoolean(RutasRealtime.ESTADO, false);
+                        leerEstado(RutasRealtime.PATH_PACIENTE);
+                    }
+                    abrirFuncion(dialogFragmentAccountPaciente, args);
+                }
             }
         }).setNegativeButton("Cancelar", null);
         builder.show();

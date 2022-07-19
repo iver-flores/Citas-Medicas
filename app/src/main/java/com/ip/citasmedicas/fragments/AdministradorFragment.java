@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.fragment.app.Fragment;
 
@@ -19,7 +20,7 @@ import com.ip.citasmedicas.dialogs.DialogFragmentVerFuncion;
 
 public class AdministradorFragment extends Fragment implements View.OnClickListener {
 
-    private Button btnVerMedico, btnVerPaciente, btnHistorial;
+    private ImageButton ibVerMedico, ibVerPaciente, ibHistorial;
 
     private View view;
 
@@ -48,35 +49,34 @@ public class AdministradorFragment extends Fragment implements View.OnClickListe
     }
 
     private void init(View view) {
-        btnVerMedico = view.findViewById(R.id.btn_ver_doctor);
-        btnVerPaciente = view.findViewById(R.id.btn_ver_paciente);
-        btnHistorial = view.findViewById(R.id.btn_ver_historial);
+        ibVerMedico = view.findViewById(R.id.ib_ver_doctor);
+        ibVerPaciente = view.findViewById(R.id.ib_ver_paciente);
+        ibHistorial = view.findViewById(R.id.ib_ver_historial);
 
-        btnVerMedico.setOnClickListener(this);
-        btnVerPaciente.setOnClickListener(this);
-        btnHistorial.setOnClickListener(this);
+        ibVerMedico.setOnClickListener(this);
+        ibVerPaciente.setOnClickListener(this);
+        ibHistorial.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         DialogFragmentVerFuncion dialogFragmentVerFuncion = new DialogFragmentVerFuncion();
         switch (view.getId()){
-            case R.id.btn_ver_doctor:
+            case R.id.ib_ver_doctor:
                 args.putString("funcion", "doctor");
-
                 assert getFragmentManager() != null;
                 dialogFragmentVerFuncion.setArguments(args);
                 dialogFragmentVerFuncion.show(requireActivity().getSupportFragmentManager(),
                         "DialogFragmentVerFuncion");
                 break;
-            case R.id.btn_ver_paciente:
+            case R.id.ib_ver_paciente:
                 args.putString("funcion", "paciente");
                 assert getFragmentManager() != null;
                 dialogFragmentVerFuncion.setArguments(args);
                 dialogFragmentVerFuncion.show(requireActivity().getSupportFragmentManager(),
                         "DialogFragmentVerFuncion");
                 break;
-            case R.id.btn_ver_historial:
+            case R.id.ib_ver_historial:
                 args.putString("funcion", "historial");
                 assert getFragmentManager() != null;
                 dialogFragmentVerFuncion.setArguments(args);

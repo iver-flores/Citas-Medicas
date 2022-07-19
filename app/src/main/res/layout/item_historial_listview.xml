@@ -11,7 +11,7 @@
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="horizontal">
@@ -19,8 +19,8 @@
             <ImageView
                 android:id="@+id/iv_paciente"
                 android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:src="@drawable/ic_launcher_background"/>
+                android:layout_height="100dp"
+                android:src="@drawable/paciente_icon"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -30,22 +30,20 @@
                 tools:ignore="RelativeOverlap">
 
                 <TextView
-                    android:id="@+id/tv_nombre_paciente"
+                    android:id="@+id/tv_nombre_doctor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/standard_3"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:text="Nombre del paciente"
+                    android:text="Nombre del doctor"
                     android:textColor="@color/black"
                     android:gravity="center|left"/>
 
                 <TextView
-                    android:id="@+id/tv_nombre_doctor"
+                    android:id="@+id/tv_nombre_paciente"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/standard_3"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:text="Nombre del medico"
+                    android:text="Nombre del paciente"
                     android:textColor="@color/black"
                     android:gravity="center|left"/>
 
@@ -53,7 +51,6 @@
                     android:id="@+id/tv_consulta"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/standard_3"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:text="Consulta"
                     android:textColor="@color/red_a700"
@@ -69,6 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="No atendido"
+            android:textColor="@color/black"
             android:rotation="-45"/>
 
     </LinearLayout>

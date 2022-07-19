@@ -9,18 +9,18 @@ public class ListaPaciente {
     private String id;
     private String foto_perfil;
     private String nombre;
-    private String especialidades;
-    private String horas;
+    private String telefono;
+    private String registro;
 
     public ListaPaciente() {
     }
 
-    public ListaPaciente(String id, String foto_perfil, String nombre, String especialidades, String horas) {
+    public ListaPaciente(String id, String foto_perfil, String nombre, String telefono, String registro) {
         this.id = id;
         this.foto_perfil = foto_perfil;
         this.nombre = nombre;
-        this.especialidades = especialidades;
-        this.horas = horas;
+        this.telefono = telefono;
+        this.registro = registro;
     }
 
     public String getId() {
@@ -47,20 +47,20 @@ public class ListaPaciente {
         this.nombre = nombre;
     }
 
-    public String getEspecialidades() {
-        return especialidades;
+    public String getTelefono() {
+        return telefono;
     }
 
-    public void setEspecialidades(String especialidades) {
-        this.especialidades = especialidades;
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 
-    public String getHoras() {
-        return horas;
+    public String getRegistro() {
+        return registro;
     }
 
-    public void setHoras(String horas) {
-        this.horas = horas;
+    public void setRegistro(String registro) {
+        this.registro = registro;
     }
 
     @Exclude
@@ -68,8 +68,8 @@ public class ListaPaciente {
         HashMap<String, Object> result = new HashMap<>();
         result.put("foto_perfil", foto_perfil);
         result.put("nombre", nombre);
-        result.put("especialidades", especialidades);
-        result.put("horas", horas);
+        result.put("telefono", telefono);
+        result.put("registro", registro);
 
         return result;
     }

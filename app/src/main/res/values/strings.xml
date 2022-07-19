@@ -2,11 +2,10 @@
     <string name="app_name">Citas Médicas</string>
     <string name="app_version">1.0.0.0</string>
 
-    <string name="about_messaggi_description">La marca Texting y el logo son propiedad de Cursos
-        Android IP. Todos los derechos reservados.</string>
+    <string name="about_messaggi_description">La marca Titas medicas y el logo son propiedad de ip. Todos los derechos reservados.</string>
     <string name="about_privacy">Aviso de privacidad</string>
     <string name="about_version">Version:</string>
-    <string name="about_webSite">www.texting.cursos-android-ant.com</string>
+    <string name="about_webSite">www.ip.com</string>
 
     <string name="common_error_server">Ha ocurrido un problema en el servidor, intente más tarde.</string>
     <string name="common_label_ok">OK</string>
